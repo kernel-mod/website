@@ -1,0 +1,189 @@
+import path from "path";
+import resolve from "@rollup/plugin-node-resolve";
+import replace from "@rollup/plugin-replace";
+import commonjs from "@rollup/plugin-commonjs";
+import url from "@rollup/plugin-url";
+import svelte from "rollup-plugin-svelte";
+import babel from "@rollup/plugin-babel";
+import { terser } from "rollup-plugin-terser";
+import config from "sapper/config/rollup.js";
+import pkg from "./package.json";
+import { mdsvex } from "mdsvex";
+import * as shiki from "shiki";
+
+const mode = process.env.NODE_ENV;
+const dev = mode === "development";
+const legacy = !!process.env.SAPPER_LEGACY_BUILD;
+
+const onwarn = (warning, onwarn) =>
+	(warning.code === "MISSING_EXPORT" && /'preload'/.test(warning.message)) ||
+	(warning.code === "CIRCULAR_DEPENDENCY" &&
+		/[/\\]@sapper[/\\]/.test(warning.message)) ||
+	onwarn(warning);
+
+function escape(unsafe) {
+	return unsafe.replace(/"/g, '\\"').replace(/'/g, "\\'");
+}
+
+const mdsvexOptions = mdsvex({
+	smartypants: true,
+	highlight: false,
+	// highlight: {
+	// 	highlighter: async (code, lang) => {
+	// 		const highlighter = await shiki.getHighlighter({
+	// 			theme: "github-dark",
+	// 		});
+	// 		const tokens = highlighter.codeToThemedTokens(code, "js");
+
+	// 		const theme = await shiki.loadTheme("themes/github-dark.json");
+
+	// 		let lineNumbers = `<div class="line-numbers" style="border-color: ${theme.colors["editorLineNumber.foreground"]}; color: ${theme.fg}">`;
+	// 		let safeCode = `<div class="code">`;
+
+	// 		for (const token of tokens) {
+	// 			if (token.length === 0) {
+	// 				safeCode += "\n";
+	// 			}
+	// 			safeCode += "<code>";
+	// 			for (const part of token) {
+	// 				safeCode += `<span style="color: ${part.color}">{"${escape(
+	// 					part.content
+	// 				)}"}</span>`;
+	// 			}
+	// 			safeCode += "</code>";
+	// 		}
+
+	// 		let nums = [];
+	// 		for (let i = 0; i < tokens.length; i++) {
+	// 			lineNumbers += `<code>${i}</code>`;
+	// 		}
+
+	// 		lineNumbers += "</div>";
+	// 		safeCode += "</div>";
+
+	// 		return `<pre class="shiki" style="background-color: ${theme.bg}">${lineNumbers}${safeCode}</pre>`;
+	// 	},
+	// },
+});
+
+export default {
+	client: {
+		input: config.client.input(),
+		output: config.client.output(),
+		plugins: [
+			replace({
+				preventAssignment: true,
+				values: {
+					"process.browser": true,
+					"process.env.NODE_ENV": JSON.stringify(mode),
+				},
+			}),
+			svelte({
+				extensions: [".svelte", ".svx"],
+				compilerOptions: {
+					dev,
+					hydratable: true,
+				},
+				preprocess: mdsvexOptions,
+			}),
+			url({
+				sourceDir: path.resolve(__dirname, "src/node_modules/images"),
+				publicPath: "/client/",
+			}),
+			resolve({
+				browser: true,
+				dedupe: ["svelte"],
+			}),
+			commonjs(),
+
+			legacy &&
+				babel({
+					extensions: [".js", ".mjs", ".html", ".svelte", ".svx"],
+					babelHelpers: "runtime",
+					exclude: ["node_modules/@babel/**"],
+					presets: [
+						[
+							"@babel/preset-env",
+							{
+								targets: "> 0.25%, not dead",
+							},
+						],
+					],
+					plugins: [
+						"@babel/plugin-syntax-dynamic-import",
+						[
+							"@babel/plugin-transform-runtime",
+							{
+								useESModules: true,
+							},
+						],
+					],
+				}),
+
+			!dev &&
+				terser({
+					module: true,
+				}),
+		],
+
+		preserveEntrySignatures: false,
+		onwarn,
+	},
+
+	server: {
+		input: config.server.input(),
+		output: config.server.output(),
+		plugins: [
+			replace({
+				preventAssignment: true,
+				values: {
+					"process.browser": false,
+					"process.env.NODE_ENV": JSON.stringify(mode),
+				},
+			}),
+			svelte({
+				extensions: [".svelte", ".svx"],
+				compilerOptions: {
+					dev,
+					generate: "ssr",
+					hydratable: true,
+				},
+				emitCss: false,
+				preprocess: mdsvexOptions,
+			}),
+			url({
+				sourceDir: path.resolve(__dirname, "src/node_modules/images"),
+				publicPath: "/client/",
+				emitFiles: false, // already emitted by client build
+			}),
+			resolve({
+				dedupe: ["svelte"],
+			}),
+			commonjs(),
+		],
+		external: Object.keys(pkg.dependencies).concat(
+			require("module").builtinModules
+		),
+		preserveEntrySignatures: "strict",
+		onwarn,
+	},
+
+	serviceworker: {
+		input: config.serviceworker.input(),
+		output: config.serviceworker.output(),
+		plugins: [
+			resolve(),
+			replace({
+				preventAssignment: true,
+				values: {
+					"process.browser": true,
+					"process.env.NODE_ENV": JSON.stringify(mode),
+				},
+			}),
+			commonjs(),
+			!dev && terser(),
+		],
+		preserveEntrySignatures: false,
+		onwarn,
+	},
+};
