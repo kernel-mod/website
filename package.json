@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev --ext \".svelte .svx\"",
-    "build": "sapper build --legacy",
+    "build": "sapper build --legacy --ext \".svelte .svx\"",
     "export": "sapper export --legacy",
     "start": "node __sapper__/build"
   },

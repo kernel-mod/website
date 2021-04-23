@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from "svelte";
 	import * as shiki from "shiki";
 	shiki.setCDN("/shiki/");
 
@@ -8,33 +9,32 @@
 	const themeName = "github-dark";
 
 	let theme;
-	const themePromise = new Promise((resolve) => {
+	let tokens;
+
+	onMount(() => {
 		const storageName = `shiki-theme-${themeName}`;
 		const cachedTheme = localStorage.getItem(storageName);
 		if (cachedTheme) {
-			resolve((theme = JSON.parse(cachedTheme)));
+			theme = JSON.parse(cachedTheme);
 		} else {
 			shiki
 				.loadTheme(`themes/${themeName}.json`)
-				.then((t) =>
-					resolve(
-						(localStorage.setItem(storageName, JSON.stringify(t)), (theme = t))
+				.then(
+					(t) => (
+						localStorage.setItem(storageName, JSON.stringify(t)), (theme = t)
 					)
 				);
 		}
-	});
 
-	let tokens;
-	const tokensPromise = new Promise((resolve) =>
 		shiki
 			.getHighlighter({
 				theme,
 				langs: [lang],
 			})
 			.then((highlighter) => {
-				resolve((tokens = highlighter.codeToThemedTokens(code, lang)));
-			})
-	);
+				tokens = highlighter.codeToThemedTokens(code, lang);
+			});
+	});
 
 	let copied = false;
 
@@ -138,6 +138,9 @@
 		border-right-style: solid;
 		white-space: pre;
 	}
+	.shiki:hover .copy {
+		opacity: 1;
+	}
 	.shiki .copy {
 		position: absolute;
 		bottom: 4px;
@@ -150,6 +153,7 @@
 		border-style: solid;
 		border-width: 1px;
 
+		opacity: 0;
 		filter: brightness(0.9);
 		transition-duration: 0.2s;
 	}

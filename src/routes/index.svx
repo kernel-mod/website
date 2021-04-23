@@ -41,8 +41,6 @@
 
 # Great success!
 
-`please dont die`
-
 ```js
 import * as React from "react";
 import "./App.css";
@@ -67,5 +65,6 @@ function App() {
 
 export default App;
 ```
+
 
 <p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
