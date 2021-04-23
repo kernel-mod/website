@@ -31,6 +31,7 @@ console.log(processLocation()); // PRELOAD
 // Renderer
 import style from "./style.css";
 
+// Ran before Webpack exists.
 console.log(webpackJsonp); // undefined
 style.inject();
 setTimeout(() => style.uninject(), 1e4);

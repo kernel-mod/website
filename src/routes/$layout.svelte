@@ -1,6 +1,6 @@
 <script>
 	import Header from "$lib/Header/index.svelte";
-	import "../app.css";
+	import "../app.scss";
 </script>
 
 <Header />
@@ -10,7 +10,7 @@
 </main>
 
 <footer>
-	<p>Visit <a href="https://kit.svelte.dev">GitHub</a> to install.</p>
+	<p>Visit <a href="https://github.com/kernel-mod/website">GitHub</a> to install.</p>
 </footer>
 
 <style>

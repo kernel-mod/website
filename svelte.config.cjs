@@ -10,6 +10,7 @@ function escape(unsafe) {
 /** @type {import('@sveltejs/kit').Config} */
 module.exports = {
 	preprocess: [
+		sveltePreprocess.scss(),
 		sveltePreprocess(),
 		mdsvex({
 			extensions: [".md", `.mdx`, ".svx"],
