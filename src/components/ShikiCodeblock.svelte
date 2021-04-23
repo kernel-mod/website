@@ -13,7 +13,7 @@
 		const storageName = `shiki-theme-${themeName}`;
 		const cachedTheme = localStorage.getItem(storageName);
 		if (cachedTheme) {
-			resolve((console.log("Found!"), (theme = JSON.parse(cachedTheme))));
+			resolve((theme = JSON.parse(cachedTheme)));
 		}
 		shiki
 			.loadTheme(`themes/${themeName}.json`)
