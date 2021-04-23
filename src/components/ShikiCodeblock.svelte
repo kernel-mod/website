@@ -1,6 +1,5 @@
 <script>
 	import * as shiki from "shiki";
-
 	shiki.setCDN("/shiki/");
 
 	export let code;
@@ -14,14 +13,15 @@
 		const cachedTheme = localStorage.getItem(storageName);
 		if (cachedTheme) {
 			resolve((theme = JSON.parse(cachedTheme)));
+		} else {
+			shiki
+				.loadTheme(`themes/${themeName}.json`)
+				.then((t) =>
+					resolve(
+						(localStorage.setItem(storageName, JSON.stringify(t)), (theme = t))
+					)
+				);
 		}
-		shiki
-			.loadTheme(`themes/${themeName}.json`)
-			.then((t) =>
-				resolve(
-					(localStorage.setItem(storageName, JSON.stringify(t)), (theme = t))
-				)
-			);
 	});
 
 	let tokens;
@@ -37,7 +37,6 @@
 	);
 
 	let copied = false;
-	let codeElement;
 
 	function copy() {
 		if (copied) clearTimeout(copied);
@@ -45,44 +44,65 @@
 			copied = false;
 		}, 1e3);
 
-		window.getSelection().selectAllChildren(codeElement);
-		document.execCommand("copy");
-		window.getSelection().empty();
+		navigator.clipboard.writeText(color);
 	}
 </script>
 
-{#await themePromise && tokensPromise}
-	<pre><code>{code}</code></pre>
-{:then}
-	<div class="shiki" style="background-color: {theme.bg}">
-		<code class="content" bind:this={codeElement}>
+<div
+	class="shiki{!!tokens ? ' hl' : ' no-hl'}"
+	style={theme ? `background-color: ${theme.bg}` : ""}
+>
+	{#if lang}
+		<code
+			class="language"
+			style={theme
+				? `color: ${theme.colors["editor.foreground"]}; border-color: ${theme.colors["editorLineNumber.foreground"]}`
+				: ""}>{lang.toUpperCase()}</code
+		>
+	{/if}
+	<code class="content">
+		{#if !tokens}
+			{#each code.split("\n") as part, i}
+				<div class="line">
+					<pre
+						class="number"
+						style={theme
+							? `border-color: ${theme.colors["editorLineNumber.foreground"]}; color: ${theme.fg}`
+							: ""}>{`${i + 1}`.padStart(code.split("\n").length.toString().length, " ")}</pre>
+					<pre
+						class="code">{#if part.length === 0}<span>{"\n"}</span>{:else}<span>{part}</span>{/if}</pre>
+				</div>
+			{/each}
+		{:else}
 			{#each tokens as token, i}
 				<div class="line">
 					<pre
 						class="number"
-						style="border-color: {theme.colors[
-							'editorLineNumber.foreground'
-						]}; color: {theme.fg}">{`${i + 1}`.padStart(tokens.length.toString().length, " ")}</pre>
+						style={theme
+							? `border-color: ${theme.colors["editorLineNumber.foreground"]}; color: ${theme.fg}`
+							: ""}>{`${i + 1}`.padStart(tokens.length.toString().length, " ")}</pre>
 					<pre
-						class="code">{#each token as part}<span style="color: {part.color}">{token.length === 0 ? "<br />" : part.content}</span>{/each}</pre>
+						class="code">{#if token.length === 0}<span>{"\n"}</span>{:else}{#each token as part}<span style="color: {part.color}">{part.content}</span>{/each}{/if}</pre>
 				</div>
 			{/each}
-		</code>
-		<input
-			on:click={copy}
-			class="copy"
-			type="button"
-			value={copied ? "Copied!" : "Copy"}
-			style="background-color: {theme.colors[
-				'editor.background'
-			]}; color: {theme.colors['editor.foreground']}; border-color: {theme
-				.colors['editor.foreground']}"
-		/>
-	</div>
-{/await}
+		{/if}
+	</code>
+	<input
+		on:click={copy}
+		class="copy"
+		type="button"
+		value={copied ? "Copied!" : "Copy"}
+		style={theme
+			? `background-color: ${theme.colors["editor.background"]}; color: ${theme.colors["editor.foreground"]}; border-color: ${theme.colors["editor.foreground"]}`
+			: ""}
+	/>
+</div>
 
 <style>
 	.shiki {
+		display: grid;
+		grid-template-rows: min-content auto;
+
 		font-family: menlo, inconsolata, monospace;
 		font-size: calc(1em - 2px);
 		padding: 0.2em 0.4em;
@@ -95,7 +115,12 @@
 		margin-top: 14px;
 		margin-bottom: 14px;
 	}
-
+	.shiki .language {
+		user-select: none;
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+		white-space: pre;
+	}
 	.shiki pre {
 		margin: 0;
 		max-width: 100%;

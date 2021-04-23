@@ -9,7 +9,6 @@ import { terser } from "rollup-plugin-terser";
 import config from "sapper/config/rollup.js";
 import pkg from "./package.json";
 import { mdsvex } from "mdsvex";
-import * as shiki from "shiki";
 
 const mode = process.env.NODE_ENV;
 const dev = mode === "development";
@@ -124,7 +123,7 @@ export default {
 				preprocess: mdsvexOptions,
 			}),
 			url({
-				sourceDir: path.resolve(__dirname, "src/node_modules/images"),
+				sourceDir: path.resolve(__dirname, "static/"),
 				publicPath: "/client/",
 				emitFiles: false, // already emitted by client build
 			}),

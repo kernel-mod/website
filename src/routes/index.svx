@@ -41,15 +41,7 @@
 
 # Great success!
 
-```md
-# Cool
-
-[bruh](https://google.com/)
-```
-
-```js
-return "yes";
-```
+`please dont die`
 
 ```js
 import * as React from "react";
