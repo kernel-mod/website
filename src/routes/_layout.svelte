@@ -1,14 +1,10 @@
-<script context="module">
-	import Nav from "../components/Nav.svelte";
+<script>
+	import Navigation from "../components/Navigation.svelte";
 
 	export let segment;
-
-	import h1 from "../components/Basic.svelte";
-
-	export { h1 };
 </script>
 
-<Nav {segment} />
+<Navigation {segment} />
 
 <main>
 	<slot />
@@ -18,7 +14,6 @@
 	main {
 		position: relative;
 		max-width: 56em;
-		background-color: white;
 		padding: 2em;
 		margin: 0 auto;
 		box-sizing: border-box;

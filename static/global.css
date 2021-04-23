@@ -3,7 +3,8 @@ body {
 	font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 	font-size: 14px;
 	line-height: 1.5;
-	color: #333;
+	color: #ddd;
+	background-color: #36393f;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -18,27 +19,6 @@ h1 {
 
 a {
 	color: inherit;
-}
-
-pre.shiki {
-	font-family: menlo, inconsolata, monospace;
-	font-size: calc(1em - 2px);
-	padding: 0.2em 0.4em;
-	border-radius: 2px;
-
-	display: grid;
-	grid-template-columns: min-content auto;
-}
-pre.shiki code {
-	display: block;
-}
-pre.shiki .line-numbers {
-	user-select: none;
-	margin-right: 4px;
-	padding-right: 4px;
-	border-right-width: 1px;
-	border-right-style: solid;
-	text-align: right;
 }
 
 @media (min-width: 400px) {
