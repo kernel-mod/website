@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from "svelte";
+	import { browser } from "$app/env";
 	import { Buffer } from "buffer";
 
 	import * as shiki from "shiki";
@@ -16,22 +17,24 @@
 	let tokens;
 
 	onMount(() => {
-		const themeStorageName = `shiki-theme-${themeName}`;
-		const cachedTheme = localStorage.getItem(themeStorageName);
-		if (cachedTheme) {
-			theme = JSON.parse(cachedTheme);
-		} else {
-			shiki
-				.loadTheme(`themes/${themeName}.json`)
-				.then((t) => (localStorage.setItem(themeStorageName, JSON.stringify(t)), (theme = t)));
-		}
+		if (browser) {
+			const themeStorageName = `shiki-theme-${themeName}`;
+			const cachedTheme = localStorage.getItem(themeStorageName);
+			if (cachedTheme) {
+				theme = JSON.parse(cachedTheme);
+			} else {
+				shiki
+					.loadTheme(`themes/${themeName}.json`)
+					.then((t) => (localStorage.setItem(themeStorageName, JSON.stringify(t)), (theme = t)));
+			}
 
-		shiki
-			.getHighlighter({
-				theme,
-				langs: [lang]
-			})
-			.then((highlighter) => (tokens = highlighter.codeToThemedTokens(debufferedCode, lang)));
+			shiki
+				.getHighlighter({
+					theme,
+					langs: [lang]
+				})
+				.then((highlighter) => (tokens = highlighter.codeToThemedTokens(debufferedCode, lang)));
+		}
 	});
 
 	let copied = false;

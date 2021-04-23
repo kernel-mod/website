@@ -9,8 +9,6 @@ function escape(unsafe) {
 
 /** @type {import('@sveltejs/kit').Config} */
 module.exports = {
-	// adapter: `@sveltejs/adapter-static`,
-
 	preprocess: [
 		sveltePreprocess(),
 		mdsvex({
@@ -35,7 +33,11 @@ module.exports = {
 		// You can create optimized builds for different platforms by
 		// specifying a different adapter
 		adapter: adapter(),
-
+		// vite: {
+		// 	ssr: {
+		// 		noExternal: Object.keys(pkg.dependencies || {})
+		// 	}
+		// },
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: "body"
 	}
