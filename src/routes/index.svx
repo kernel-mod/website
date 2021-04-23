@@ -13,7 +13,7 @@
 
 ## Run Plugins Everywhere
 
-```js
+```jsd
 // Main Process
 import level from "level";
 

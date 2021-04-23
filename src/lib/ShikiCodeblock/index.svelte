@@ -79,7 +79,9 @@
 							? `border-color: ${theme.colors["editorLineNumber.foreground"]}; color: ${theme.fg}`
 							: ""}>{`${i + 1}`.padStart(debufferedCode.split("\n").length.toString().length, " ")}</pre>
 					<pre
-						class="code">{#if part.length === 0}<span>{"\n"}</span>{:else}<span>{part}</span>{/if}</pre>
+						class="code">{#if part.length === 0}<span>{"\n"}</span>{:else}<span style={theme
+				? `color: ${theme.colors["editor.foreground"]}; border-color: ${theme.colors["editorLineNumber.foreground"]}`
+				: ""}>{part}</span>{/if}</pre>
 				</div>
 			{/each}
 		{:else}
