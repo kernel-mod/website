@@ -1,5 +1,5 @@
 <script context="module">
-	import pre from "../components/ShikiCodeblock.svelte";
+	import pre from "$lib/ShikiCodeblock/index.svelte";
 	export { pre };
 </script>
 

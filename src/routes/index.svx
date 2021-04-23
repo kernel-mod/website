@@ -1,70 +1,43 @@
+<script context="module">
+	export const prerender = true;
+</script>
+
 <script>
 </script>
 
-<style>
-	h1, figure, p {
-		text-align: center;
-		margin: 0 auto;
-	}
-
-	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
-
-	figure {
-		margin: 0 0 1em 0;
-	}
-
-	img {
-		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
-	}
-
-	p {
-		margin: 1em auto;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
-</style>
-
 <svelte:head>
-<title>Sapper project template</title>
+	<title>Home</title>
 </svelte:head>
 
-# Great success!
+# Kernel
 
-```jsx
-import * as React from "react";
-import "./App.css";
-import Hello from "./components/Hello";
+## Run Plugins Everywhere
 
-const logo = require("./logo.svg");
+```js
+// Main Process
+import level from "level";
 
-function App() {
-	return (
-		<div className="App">
-			<div className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<h2>Welcome to React</h2>
-			</div>
-			<p className="App-intro">
-				To get started, edit <code>src/App.tsx</code> and save to reload.
-			</p>
-			<Hello name="TypeScript" />
-		</div>
-	);
-}
-
-export default App;
+const database = level("my-db");
 ```
 
+```js
+// Preload
+import { processLocation } from "kernel/utilities";
 
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+console.log(processLocation()); // PRELOAD
+```
+
+```js
+// Renderer
+import style from "./style.css";
+
+console.log(webpackJsonp); // undefined
+style.inject();
+setTimeout(() => style.uninject(), 1e4);
+```
+
+<style>
+	h1, h2 {
+		text-align: center;
+	}
+</style>

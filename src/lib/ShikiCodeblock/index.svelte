@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from "svelte";
+	import { Buffer } from "buffer";
 
 	import * as shiki from "shiki";
 	shiki.setCDN("/shiki/");
@@ -7,41 +8,30 @@
 	export let code;
 	export let lang;
 
+	const debufferedCode = Buffer.from(code, "base64").toString();
+
 	const themeName = "github-dark";
 
 	let theme;
 	let tokens;
 
-	const realLang = (() => {
-		switch (lang) {
-			case "jsx":
-				return "js";
-		}
-	})();
-
 	onMount(() => {
-		const storageName = `shiki-theme-${themeName}`;
-		const cachedTheme = localStorage.getItem(storageName);
+		const themeStorageName = `shiki-theme-${themeName}`;
+		const cachedTheme = localStorage.getItem(themeStorageName);
 		if (cachedTheme) {
 			theme = JSON.parse(cachedTheme);
 		} else {
 			shiki
 				.loadTheme(`themes/${themeName}.json`)
-				.then(
-					(t) => (
-						localStorage.setItem(storageName, JSON.stringify(t)), (theme = t)
-					)
-				);
+				.then((t) => (localStorage.setItem(themeStorageName, JSON.stringify(t)), (theme = t)));
 		}
 
 		shiki
 			.getHighlighter({
 				theme,
-				langs: [realLang],
+				langs: [lang]
 			})
-			.then((highlighter) => {
-				tokens = highlighter.codeToThemedTokens(code, realLang);
-			});
+			.then((highlighter) => (tokens = highlighter.codeToThemedTokens(debufferedCode, lang)));
 	});
 
 	let copied = false;
@@ -52,7 +42,7 @@
 			copied = false;
 		}, 1e3);
 
-		navigator.clipboard.writeText(color);
+		navigator.clipboard.writeText(debufferedCode);
 	}
 </script>
 
@@ -70,13 +60,13 @@
 	{/if}
 	<code class="content">
 		{#if !tokens}
-			{#each code.split("\n") as part, i}
+			{#each debufferedCode.split("\n") as part, i}
 				<div class="line">
 					<pre
 						class="number"
 						style={theme
 							? `border-color: ${theme.colors["editorLineNumber.foreground"]}; color: ${theme.fg}`
-							: ""}>{`${i + 1}`.padStart(code.split("\n").length.toString().length, " ")}</pre>
+							: ""}>{`${i + 1}`.padStart(debufferedCode.split("\n").length.toString().length, " ")}</pre>
 					<pre
 						class="code">{#if part.length === 0}<span>{"\n"}</span>{:else}<span>{part}</span>{/if}</pre>
 				</div>
@@ -122,6 +112,8 @@
 
 		margin-top: 14px;
 		margin-bottom: 14px;
+
+		tab-size: 4;
 	}
 	.shiki .language {
 		user-select: none;
