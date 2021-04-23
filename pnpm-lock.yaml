@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@fontsource/fira-mono': ^4.2.2
+  '@fontsource/fira-code': ^4.2.2
   '@lukeed/uuid': ^2.0.0
   '@sveltejs/adapter-netlify': next
   '@sveltejs/kit': next
@@ -21,7 +21,7 @@ specifiers:
   vite: ^2.1.0
 
 dependencies:
-  '@fontsource/fira-mono': 4.2.2
+  '@fontsource/fira-code': 4.2.2
   '@lukeed/uuid': 2.0.0
   buffer: 6.0.3
   cookie: 0.4.1
@@ -79,8 +79,8 @@ packages:
       - supports-color
     dev: true
 
-  /@fontsource/fira-mono/4.2.2:
-    resolution: {integrity: sha512-t2WRThg+eLkQNQCtPG2sCCq40lz3xeb7nsL7P8l4+wfSRbdLQXAY5IebMftI2YEZR4MRRhdgrg0p5fi/2yXypA==}
+  /@fontsource/fira-code/4.2.2:
+    resolution: {integrity: sha512-Bhg7rQ/CUbedA6B6K6gS2GDEa5JJjQwSqq1KMz4wVMaXXL+igsLrr4VKKmdfExwlB6o7Ie8kScXg4camZmt7TQ==}
     dev: false
 
   /@lukeed/csprng/1.0.0:

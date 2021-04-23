@@ -21,7 +21,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@fontsource/fira-mono": "^4.2.2",
+    "@fontsource/fira-code": "^4.2.2",
     "@lukeed/uuid": "^2.0.0",
     "buffer": "^6.0.3",
     "cookie": "^0.4.1",
