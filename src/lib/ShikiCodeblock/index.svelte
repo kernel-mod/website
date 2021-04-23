@@ -4,7 +4,6 @@
 	import { Buffer } from "buffer";
 
 	import * as shiki from "shiki";
-	shiki.setCDN("/shiki/");
 
 	export let code;
 	export let lang;
@@ -18,6 +17,8 @@
 
 	onMount(() => {
 		if (browser) {
+			shiki.setCDN("/shiki/");
+
 			const themeStorageName = `shiki-theme-${themeName}`;
 			const cachedTheme = localStorage.getItem(themeStorageName);
 			if (cachedTheme) {
