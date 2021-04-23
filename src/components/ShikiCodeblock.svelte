@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from "svelte";
+
 	import * as shiki from "shiki";
 	shiki.setCDN("/shiki/");
 
@@ -10,6 +11,13 @@
 
 	let theme;
 	let tokens;
+
+	const realLang = (() => {
+		switch (lang) {
+			case "jsx":
+				return "js";
+		}
+	})();
 
 	onMount(() => {
 		const storageName = `shiki-theme-${themeName}`;
@@ -29,10 +37,10 @@
 		shiki
 			.getHighlighter({
 				theme,
-				langs: [lang],
+				langs: [realLang],
 			})
 			.then((highlighter) => {
-				tokens = highlighter.codeToThemedTokens(code, lang);
+				tokens = highlighter.codeToThemedTokens(code, realLang);
 			});
 	});
 
