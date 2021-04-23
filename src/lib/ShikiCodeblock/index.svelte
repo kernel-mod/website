@@ -19,22 +19,29 @@
 		if (browser) {
 			shiki.setCDN("/shiki/");
 
-			const themeStorageName = `shiki-theme-${themeName}`;
-			const cachedTheme = localStorage.getItem(themeStorageName);
-			if (cachedTheme) {
-				theme = JSON.parse(cachedTheme);
-			} else {
+			function makeTokens(theme) {
 				shiki
-					.loadTheme(`themes/${themeName}.json`)
-					.then((t) => (localStorage.setItem(themeStorageName, JSON.stringify(t)), (theme = t)));
+					.getHighlighter({
+						theme,
+						langs: [lang]
+					})
+					.then((highlighter) => (tokens = highlighter.codeToThemedTokens(debufferedCode, lang)));
 			}
 
-			shiki
-				.getHighlighter({
-					theme,
-					langs: [lang]
-				})
-				.then((highlighter) => (tokens = highlighter.codeToThemedTokens(debufferedCode, lang)));
+			const themeStorageName = `shiki-theme-${themeName}`;
+			const cachedTheme = localStorage.getItem(themeStorageName);
+			let loadedTheme;
+			if (cachedTheme) {
+				loadedTheme = JSON.parse(cachedTheme);
+				theme = loadedTheme;
+				makeTokens(loadedTheme);
+			} else {
+				shiki.loadTheme(`themes/${themeName}.json`).then((loadedTheme) => {
+					theme = loadedTheme;
+					localStorage.setItem(themeStorageName, JSON.stringify(loadedTheme));
+					makeTokens(loadedTheme);
+				});
+			}
 		}
 	});
 
