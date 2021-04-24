@@ -1,16 +1,23 @@
 <script>
     export let disabled;
     export let color;
+    export let selected;
 </script>
 
 <template>
-    <div role="tab" style={(color) ? `--tab-color: ${color}` : null} class:colored={color} class:disabled class="tab-item">
+    <div role="tab" style={(color) ? `--tab-color: ${color}` : null} class:selected={selected} class:colored={color} class:disabled class="tab-item">
         <slot/> 
     </div>  
     <slot name="badge"/>
 </template>
 
 <style lang="scss" global>
+    .tab-bar.vertical.top-pill {
+        .tab-item {
+            text-align: left;
+            justify-content: left;
+        }
+    }
     .tab-bar {
         .tab-item {
             display: flex;

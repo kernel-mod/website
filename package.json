@@ -6,7 +6,8 @@
     "build": "svelte-kit build",
     "preview": "svelte-kit preview",
     "lint": "prettier --check . && eslint --ignore-path .gitignore .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "jsdoc": "node ./scripts/jsdoc.js"
   },
   "devDependencies": {
     "@sveltejs/adapter-netlify": "next",
@@ -14,6 +15,8 @@
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-svelte3": "^3.1.0",
+    "fs-extra": "^9.1.0",
+    "jsdoc-to-markdown": "^7.0.1",
     "prettier": "~2.2.1",
     "prettier-plugin-svelte": "^2.2.0",
     "svelte": "^3.29.0",
@@ -27,6 +30,7 @@
     "cookie": "^0.4.1",
     "mdsvex": "^0.9.0",
     "node-sass": "^5.0.0",
+    "pluralize": "^8.0.0",
     "sass": "^1.32.11",
     "shiki": "^0.9.3",
     "svelte-preprocess": "^4.7.2"

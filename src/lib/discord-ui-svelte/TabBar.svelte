@@ -1,17 +1,23 @@
 <script>
     export let type = 'pill';
+    export let orientation = "horizontal"
 </script>
 
 <template>
-    <nav role="tablist" class:top-pill={type == 'pill'} class:top={type == 'top'} class="tab-bar">
+    <nav role="tablist" class:vertical={orientation == "vertical"} class:horizontal={orientation == "horizontal"} class:top-pill={type == 'pill'} class:top={type == 'top'} class="tab-bar">
         <slot/>
     </nav>
 </template>
 
-<style>
+<style lang="scss" glboal>
     .tab-bar {
         display: flex;
-        flex-direction: row;
+        &.horizontal {
+            flex-direction: row;
+        }
+        &.vertical {
+            flex-direction: column;
+        }
         &.top { 
             align-items: stretch;
             height: 55px;

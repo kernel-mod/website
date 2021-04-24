@@ -111,6 +111,8 @@
 
 <style>
 	.shiki {
+		max-width: 90%;
+
 		display: grid;
 		grid-template-rows: min-content auto;
 
