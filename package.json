@@ -1,38 +1,21 @@
 {
-	"name": "website",
-	"version": "0.0.1",
-	"scripts": {
-		"dev": "svelte-kit dev",
-		"build": "svelte-kit build",
-		"preview": "svelte-kit preview",
-		"lint": "prettier --check . && eslint --ignore-path .gitignore .",
-		"format": "prettier --write .",
-		"jsdoc": "node ./scripts/jsdoc.js"
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-netlify": "next",
-		"@sveltejs/kit": "next",
-		"eslint": "^7.22.0",
-		"eslint-config-prettier": "^8.1.0",
-		"eslint-plugin-svelte3": "^3.1.0",
-		"prettier": "~2.2.1",
-		"prettier-plugin-svelte": "^2.2.0",
-		"svelte": "^3.29.0",
-		"vite": "^2.1.0"
-	},
-	"type": "module",
-	"dependencies": {
-		"@fontsource/fira-code": "^4.2.2",
-		"@lukeed/uuid": "^2.0.0",
-		"buffer": "^6.0.3",
-		"cookie": "^0.4.1",
-		"mdsvex": "^0.9.0",
-		"node-sass": "^5.0.0",
-		"pluralize": "^8.0.0",
-		"sass": "^1.32.11",
-		"shiki": "^0.9.3",
-		"fs-extra": "^9.1.0",
-		"jsdoc-to-markdown": "^7.0.1",
-		"svelte-preprocess": "^4.7.2"
-	}
+  "name": "@example/docs",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/renderer-solid": "^0.1.1",
+    "@docsearch/react": "^1.0.0-alpha.27",
+    "nests": "^2.2.1"
+  },
+  "devDependencies": {
+    "@astrojs/renderer-preact": "^0.2.2",
+    "@snowpack/plugin-dotenv": "^2.1.0",
+    "astro": "^0.20.7"
+  }
 }
