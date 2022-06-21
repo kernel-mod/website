@@ -1,0 +1,272 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+import PageSection from "~/components/PageSection";
+import PageOutline from "~/components/PageOutline.astro";
+import Text from "~/components/Text";
+import ListItem from "~/components/ListItem";
+import SearchBar from "~/components/SearchBar";
+
+import Book from "~/icons/Book";
+import Edit from "~/icons/Edit";
+
+import { DOCS_SIDEBAR, GITHUB_EDIT_URL } from "~/config";
+
+import "~/styles/markdown.css";
+
+const { title, content = {} } = Astro.props;
+
+const currentPath = new URL(Astro.request.url).pathname.split("en")[1];
+const currentFile = `src/pages/docs${currentPath.replace(/\/$/, '') || "/index"}.md`;
+
+// Categorize flat sidebar array
+const sidebarSections = DOCS_SIDEBAR.en.reduce((col, item, i) => {
+	if (i === 0 && !item.header) {
+        const pesudoSection = { text: "" };
+        col.push({ ...pesudoSection, children: [] });
+	}
+	if (item.header) {
+		col.push({ ...item, children: [] });
+	} else {
+		col[col.length - 1].children.push(item);
+	}
+	return col;
+}, []);
+const currentSection = sidebarSections.find(section => section.children.some(item => item.path === currentPath));
+const currentPage = currentSection?.children.find(item => item.path === currentPath);
+---
+
+<BaseLayout {title}>
+    <PageSection class="kernel-docs-wrapper">
+        <header class="kernel-docs-header">
+            <div class="kernel-docs-header-info">
+                <Book class="kernel-docs-header-icon" />
+                <Text variant="title" class="kernel-docs-header-breadcrumb">
+                    {currentSection?.name}
+                        <span class="kernel-breadcrumb-separator">{" > "}</span>
+                    {currentPage?.name}
+                </Text>
+            </div>
+            <div class="kernel-docs-header-actions">
+                <a
+                    href={GITHUB_EDIT_URL + currentFile}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    class="kernel-docs-header-action"
+                    title="Edit this page on GitHub"
+                >
+                    <Edit />
+                </a>
+                <SearchBar client:load placeholder="Search Docs..." />
+            </div>
+        </header>
+        <div class="kernel-docs-splitter">
+            <aside class="kernel-docs-sidebar">
+                <nav>
+                    {DOCS_SIDEBAR.en.map(({ name, path }) => {
+                        return (
+                            path ? (
+                                <ListItem
+                                    aria-current={`${currentPath === path ? 'page' : 'false'}`}
+                                    selected={currentPath === path}
+                                    href={`/docs/en${path}`}
+                                >
+                                    {name}
+                                </ListItem>
+                            ) : (
+                                <Text
+                                    class="kernel-docs-sidebar-header"
+                                    variant="title"
+                                    tag="h3"
+                                >
+                                    {name}
+                                </Text>
+                            )
+                        );
+                    })}
+                </nav>
+            </aside>
+            <article class="kernel-docs-content kernel-markdown-body">
+                {content.title && (
+                    <Text tag="h1" variant="title" class="kernel-docs-page-title">
+                        {content.title}
+                    </Text>
+                )}
+                <slot />
+            </article>
+            <aside class="kernel-page-outline-column">
+                <PageOutline
+                    title={content.title}
+                    headers={content.astro.headers}
+                    aria-labelledby="kernel-page-outline-label"
+                >
+                    <Text variant="title" tag="h3" class="kernel-docs-sidebar-header" id="kernel-page-outline-label">
+                        On This Page
+                    </Text>
+                </PageOutline>
+            </aside>
+        </div>
+    </PageSection>
+</BaseLayout>
+
+<style>
+    :global(body) {
+        display: flex;
+        flex-direction: column;
+    }
+
+    :global(.kernel-docs-wrapper) {
+        flex: 1 1 auto;
+    }
+
+    .kernel-docs-header,
+    :global(.kernel-docs-wrapper .kernel-page-section-inner) {
+        border-start-start-radius: 8px;
+        border-start-end-radius: 8px;
+    }
+
+    :global(.kernel-docs-wrapper .kernel-page-section-inner) {
+        display: flex;
+        flex-direction: column;
+        block-size: 100%;
+        max-inline-size: 1232px;
+        background-color: var(--kernel-background-tertiary);
+        padding: 0;
+    }
+
+    .kernel-docs-header {
+        z-index: 1;
+        top: -0.1px;
+        position: sticky;
+        display: flex;
+        align-items: center;
+        background-color: var(--kernel-background-primary);
+        box-shadow: inset 0 1px 0 var(--kernel-interactive-primary);
+        block-size: 48px;
+        padding-inline: 24px 12px;
+    }
+
+    .kernel-docs-header-info,
+    .kernel-docs-header-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .kernel-docs-header-info {
+        flex: 1 1 auto;
+    }
+
+    .kernel-breadcrumb-separator {
+        color: var(--kernel-foreground-tertiary);
+    }
+
+    .kernel-docs-header-actions {
+        flex: 0 0 auto;
+        gap: 8px;
+    }
+
+    .kernel-docs-header-action {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        cursor: pointer;
+        inline-size: 28px;
+        block-size: 28px;
+        border-radius: 4px;
+        border: none;
+        background-color: var(--kernel-interactive-primary);
+        color: var(--kernel-foreground-secondary);
+    }
+
+    .kernel-docs-header-action:hover {
+        background-color: var(--kernel-interactive-secondary);
+    }
+
+    .kernel-docs-header-action:focus {
+        box-shadow: 0 0 0 3px var(--kernel-accent-faded);
+    }
+
+    .kernel-docs-header-action :global(svg) {
+        fill: currentColor;
+        inline-size: 14px;
+        block-size: auto;
+    }
+
+    .kernel-docs-header-icon {
+        inline-size: 16px;
+        block-size: auto;
+        fill: currentColor;
+        margin-inline-end: 12px;
+        color: var(--kernel-accent-primary);
+    }
+
+    .kernel-docs-header-actions :global(.kernel-search-bar) {
+        background-color: var(--kernel-background-tertiary);
+    }
+
+    .kernel-docs-splitter {
+        display: flex;
+        block-size: 100%;
+        min-block-size: 0;
+    }
+
+    .kernel-docs-sidebar {
+        flex: 0 0 auto;
+        inline-size: 260px;
+        padding: 12px;
+        background-color: var(--kernel-background-secondary);
+    }
+
+    .kernel-docs-content {
+        overflow-x: auto;
+        flex: 1 1 auto;
+        padding: 48px;
+    }
+
+    .kernel-docs-content :global(*:target) {
+        scroll-margin-top: 64px;
+    }
+
+    .kernel-docs-content :global(.kernel-docs-page-title) {
+        font-size: 36px;
+    }
+
+    .kernel-page-outline-column {
+        position: sticky;
+        top: 48px;
+        flex: 0 0 auto;
+        align-self: baseline;
+        inline-size: 200px;
+        padding-inline: 12px;
+        padding-block: 24px;
+    }
+
+    .kernel-docs-sidebar-header {
+        padding-inline: 12px;
+        padding-block: 6px;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+
+    :global(.kernel-docs-sidebar-header:not(:first-of-type)) {
+        margin-block-start: 24px;
+    }
+
+    @media only screen and (max-width: 1232px) {
+        :global(.kernel-docs-wrapper .kernel-page-section-inner),
+        .kernel-docs-header {
+            border-start-start-radius: 0;
+            border-start-end-radius: 0;
+        }
+
+        .kernel-docs-header {
+            box-shadow: none;
+        }
+
+        :global(.kernel-navbar .kernel-navbar-inner) {
+            padding-block: 12px;
+        }
+    }
+</style>

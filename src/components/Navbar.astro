@@ -1,0 +1,19 @@
+---
+import "~/styles/Navbar.css";
+
+const { title = "" } = Astro.props;
+---
+
+<header class="kernel-navbar">
+    <nav class="kernel-navbar-inner">
+        <div class="kernel-navbar-links">
+            {title && <a href="/" class="kernel-navbar-title">
+                <span>{title}</span>
+            </a>}
+            <slot />
+        </div>
+        {Astro.slots.has("actions") && <div class="kernel-navbar-actions">
+            <slot name="actions" />
+        </div>}
+    </nav>
+</header>

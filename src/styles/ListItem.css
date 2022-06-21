@@ -1,0 +1,43 @@
+.kernel-list-item-anchor {
+    text-decoration: none;
+}
+
+.kernel-list-item {
+    list-style-type: none;
+    user-select: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: var(--kernel-foreground-secondary);
+    font-size: 13px;
+    padding-inline: 24px 12px;
+    padding-block: 6px;
+    border-radius: 4px;
+}
+
+.kernel-list-item::before {
+    content: "";
+    position: absolute;
+    opacity: 0;
+    inset-inline-start: 12px;
+    block-size: 12px;
+    inline-size: 3px;
+    border-radius: 50px;
+    background-color: var(--kernel-accent-primary);
+}
+
+.kernel-list-item:hover::before {
+    opacity: 0.5;
+}
+
+.kernel-list-item.selected::before {
+    opacity: 1;
+}
+
+.kernel-list-item:hover {
+    background-color: var(--kernel-background-primary);
+}
+
+.kernel-list-item:active {
+    background-color: var(--kernel-interactive-primary);
+}

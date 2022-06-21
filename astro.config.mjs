@@ -1,19 +1,32 @@
-// Full Astro Configuration API Documentation:
-// https://docs.astro.build/reference/configuration-reference
+import { defineConfig } from "astro/config";
 
-// @type-check enabled!
-// VSCode and other TypeScript-enabled text editors will provide auto-completion,
-// helpful tooltips, and warnings if your exported object is invalid.
-// You can disable this by removing "@ts-check" and `@type` comments below.
+import path from "path";
 
-// @ts-check
-export default /** @type {import('astro').AstroUserConfig} */ ({
-	renderers: [
-		// Enable the Solid renderer to support Solid JSX components.
-		"@astrojs/renderer-solid",
-		// Enable the Preact renderer to support Preact JSX components.
-		"@astrojs/renderer-preact",
-		// Enable the React renderer, for the Algolia search component
-		"@astrojs/renderer-react",
-	],
+import solid from "@astrojs/solid-js";
+import sitemap from "@astrojs/sitemap";
+
+import twoslash from "remark-shiki-twoslash";
+
+// https://astro.build/config
+export default defineConfig({
+	integrations: [solid(), sitemap()],
+    markdown: {
+        shikiConfig: {
+            theme: "one-dark-pro"
+        }
+        // remarkPlugins: [
+        //     'remark-gfm',
+		// 	'remark-smartypants',
+        //     [twoslash.default, {
+        //         theme: "one-dark-pro"
+        //     }]
+        // ]
+    },
+    vite: {
+        resolve: {
+            alias: {
+                "~": path.resolve("./src")
+            }
+        }
+    }
 });

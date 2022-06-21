@@ -1,21 +1,22 @@
 {
-  "name": "@example/docs",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
-  },
-  "dependencies": {
-    "@astrojs/renderer-solid": "^0.1.1",
-    "@docsearch/react": "^1.0.0-alpha.27",
-    "nests": "^2.2.1"
-  },
-  "devDependencies": {
-    "@astrojs/renderer-preact": "^0.2.2",
-    "@snowpack/plugin-dotenv": "^2.1.0",
-    "astro": "^0.20.7"
-  }
+	"name": "@example/basics",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@astrojs/sitemap": "^0.1.2",
+		"@astrojs/solid-js": "^0.1.4",
+		"astro": "^1.0.0-beta.47",
+		"remark-shiki-twoslash": "^3.0.9",
+		"solid-js": "^1.4.4"
+	},
+	"dependencies": {
+		"prettier": "^2.7.1"
+	}
 }

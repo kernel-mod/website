@@ -1,0 +1,52 @@
+---
+import ListItem from "./ListItem";
+
+const { title = "Overview", headers, ...rest } = Astro.props;
+---
+
+<nav class="kernel-page-outline" {...rest}>
+    <slot />
+    <ul>
+        <ListItem class="depth-1" href="#">
+            {title}
+        </ListItem>
+        {headers
+            .filter(({ depth }) => depth > 0 && depth < 4)
+            .map((header) => (
+                <ListItem
+                    class={`depth-${header.depth}`}
+                    href={`#${header.slug}`}
+                >
+                    {header.text}
+                </ListItem>
+            ))}
+    </ul>
+</nav>
+
+<style>
+    .kernel-page-outline ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    .kernel-page-outline :global(.kernel-list-item) {
+        margin-bottom: 2px;
+    }
+
+    .kernel-page-outline :global(.kernel-list-item.depth-1) {
+        padding-inline-start: 12px;
+    }
+
+    .kernel-page-outline :global(.kernel-list-item.depth-1)::before {
+        content: none;
+    }
+
+    .kernel-page-outline :global(.kernel-list-item.depth-2) {
+        padding-inline-start: 36px;
+    }
+
+    .kernel-page-outline :global(.kernel-list-item.depth-3) {
+        padding-inline-start: 60px;
+    }
+</style>

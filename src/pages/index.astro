@@ -1,3 +1,123 @@
-<script>
-  window.location.pathname = `/en`;
-</script>
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+
+import NavbarLink from "~/components/NavbarLink.astro";
+import Navbar from "~/components/Navbar.astro";
+import PageSection from "~/components/PageSection";
+import Atom from "~/components/Atom.astro";
+import Button from "~/components/Button";
+import Text from "~/components/Text";
+---
+
+<BaseLayout title="Home - Kernel">
+    <main>
+        <PageSection id="hero-section">
+            <div class="kernel-hero-contents">
+                <Text variant="title">The mod loader for <span class="kernel-title-highlight">idk 💀</span></Text>
+                <Text>
+                    Kernel gives you full control over electron applications with powerful custom JavaScript <a href="/packages">packages</a> and <a href="/docs">APIs</a> for tinkering.
+                </Text>
+                <div class="kernel-hero-buttons">
+                    <Button variant="accent">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                            <path fill-rule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z" />
+                        </svg>
+                        Download Launcher
+                    </Button>
+                    <Button href="/docs">Learn More {">"}</Button>
+                </div>
+            </div>
+
+            <Atom />
+        </PageSection>
+    </main>
+</Layout>
+
+<style>
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+    :global(header.kernel-navbar) {
+        position: absolute;
+        inset: 0;
+    }
+
+    :global(.kernel-navbar),
+    .kernel-hero-contents {
+        mix-blend-mode: difference;
+    }
+
+    main :global(#hero-section) {
+        background-color: var(--kernel-background-secondary);
+        text-align: center;
+        overflow: hidden;
+    }
+
+    main :global(#hero-section .kernel-page-section-inner) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .kernel-hero-contents {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-block-size: 680px;
+    }
+
+    :global(#hero-section .kernel-title) {
+        font-size: 48px;
+    }
+
+    .kernel-title-highlight {
+        color: var(--kernel-accent-primary);
+    }
+
+    :global(#hero-section .kernel-caption) {
+        color: var(--kernel-foreground-tertiary);
+        font-size: 18px;
+        line-height: 2;
+        max-width: 48ch;
+        margin-block: 12px 24px;
+    }
+
+    :global(.kernel-caption) a {
+        color: var(--kernel-accent-primary);
+        text-decoration: underline;
+        text-decoration-style: wavy;
+        text-decoration-color: var(--kernel-accent-faded);
+        text-decoration-skip-ink: none;
+    }
+
+
+    .kernel-hero-buttons {
+        display: flex;
+        gap: 12px;
+    }
+
+    .kernel-hero-buttons :global(.kernel-button) {
+        padding-block: 16px;
+    }
+
+    .kernel-hero-buttons :global(.kernel-button:last-child) {
+        background-color: var(--kernel-interactive-tertiary);
+    }
+
+    .kernel-hero-buttons :global(.kernel-button:last-child:hover) {
+        background-color: var(--kernel-interactive-quarternary);
+    }
+
+    :global(.kernel-atom) {
+        animation: rotate 400s linear infinite;
+    }
+</style>

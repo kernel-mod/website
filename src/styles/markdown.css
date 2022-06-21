@@ -1,0 +1,65 @@
+.kernel-markdown-body {
+    color: var(--kernel-foreground-primary);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.kernel-markdown-body a {
+    color: var(--kernel-accent-primary);
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--kernel-accent-faded);
+    text-decoration-skip-ink: none;
+}
+
+.kernel-markdown-body :is(h1, h2, h3, h4, h5, h6) {
+    color: var(--kernel-foreground-primary);
+}
+
+.kernel-markdown-body :is(h1, h2) {
+    padding-block-end: 0.3em;
+    border-block-end: 1px solid var(--kernel-interactive-primary);
+}
+
+.kernel-markdown-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 3px;
+}
+
+.kernel-markdown-body pre {
+    position: relative;
+    border-radius: 4px;
+    padding: 12px;
+    /* padding-block-start: 48px; */
+    background-color: var(--kernel-background-primary) !important;
+    border: 1px solid var(--kernel-interactive-primary);
+}
+
+.kernel-markdown-body code {
+    padding: 2px;
+    border-radius: 4px;
+    background-color: var(--kernel-background-primary);
+    border: 1px solid var(--kernel-interactive-primary);
+}
+
+.kernel-markdown-body pre code {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.kernel-markdown-body .language-id {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 36px;
+    box-sizing: border-box;
+    background-color: var(--kernel-interactive-primary);
+    padding-inline: 12px;
+    color: var(--kernel-foreground-secondary);
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}

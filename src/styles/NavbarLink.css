@@ -1,0 +1,12 @@
+.kernel-navbar-link {
+	box-sizing: border-box;
+	text-decoration: none;
+	color: var(--kernel-foreground-tertiary);
+	font-size: 16px;
+	font-weight: 400;
+	padding: 1px;
+}
+
+.kernel-navbar-link:focus {
+	outline: 1px solid var(--kernel-accent-faded);
+}

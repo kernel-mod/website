@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
+:root,
+dialog {
+	color-scheme: dark;
+	font-family: "Manrope", sans-serif;
+
+	--kernel-base-hue: 108deg;
+	--kernel-base-accent: var(--kernel-base-hue), 69%, 76%;
+
+	--kernel-accent-primary: hsl(var(--kernel-base-accent));
+	--kernel-accent-faded: hsla(var(--kernel-base-accent), 50%);
+	--kernel-accent-faded-secondary: hsla(
+		var(--kernel-base-hue),
+		69%,
+		16%,
+		15%
+	);
+
+	--kernel-foreground-primary: hsl(var(--kernel-base-hue), 0%, 100%);
+	--kernel-foreground-secondary: hsl(var(--kernel-base-hue), 75%, 87%);
+	--kernel-foreground-tertiary: hsl(var(--kernel-base-hue), 18%, 64%);
+	--kernel-foreground-danger: hsl(0, 66%, 56%);
+
+	--kernel-background-primary: hsl(var(--kernel-base-hue), 5%, 11%);
+	--kernel-background-secondary: hsl(var(--kernel-base-hue), 5%, 9%);
+	--kernel-background-tertiary: hsl(var(--kernel-base-hue), 3%, 8%);
+	--kernel-background-danger: hsl(0deg 100% 68%);
+
+	--kernel-interactive-primary: hsl(var(--kernel-base-hue), 7%, 15%);
+	--kernel-interactive-secondary: hsl(var(--kernel-base-hue), 7%, 18%);
+	--kernel-interactive-tertiary: hsl(var(--kernel-base-hue), 7%, 24%);
+	--kernel-interactive-quarternary: hsl(var(--kernel-base-hue), 7%, 32%);
+}
+
+::-webkit-scrollbar {
+	inline-size: 8px;
+	block-size: 8px;
+	background-color: var(--kernel-background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	border: 2px solid var(--kernel-background-secondary);
+	background-color: var(--kernel-interactive-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--kernel-interactive-secondary);
+}
+
+::-webkit-scrollbar-thumb:active {
+	background-color: var(--kernel-interactive-tertiary);
+}
+
+::-webkit-scrollbar-corner {
+	appearance: none;
+}
+
+html,
+body {
+    scroll-behavior: smooth;
+	margin: 0;
+	padding: 0;
+	inline-size: 100%;
+	block-size: 100%;
+}

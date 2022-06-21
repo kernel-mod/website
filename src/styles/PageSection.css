@@ -1,0 +1,12 @@
+.kernel-page-section {
+	position: relative;
+}
+
+.kernel-page-section-inner {
+	display: block;
+	position: relative;
+	box-sizing: border-box;
+	max-inline-size: 1280px;
+	padding-inline: 24px;
+	margin-inline: auto;
+}
