@@ -16,7 +16,7 @@ import "~/styles/markdown.css";
 
 const { title, content = {} } = Astro.props;
 
-const currentPath = new URL(Astro.request.url).pathname.split("en")[1];
+const currentPath = new URL(Astro.request.url).pathname.split("en")[1] || "/";
 const currentFile = `src/pages/docs${currentPath.replace(/\/$/, '') || "/index"}.md`;
 
 // Categorize flat sidebar array
