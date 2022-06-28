@@ -2,10 +2,14 @@
     0% {
         opacity: 0;
         transform: translateY(-10px);
+        max-block-size: 0;
+    }
+    50% {
+        transform: translateY(0);
+        opacity: 1;
     }
     100% {
-        opacity: 1;
-        transform: translateY(0);
+        max-block-size: clamp(240px, 60vh, 768px);
     }
 }
 
@@ -32,7 +36,7 @@
 }
 
 .kernel-search-results-popout {
-    animation: search-open 150ms ease;
+    animation: search-open 350ms cubic-bezier(0, 0, 0, 1);
 	overflow: auto;
     overflow: overlay;
     block-size: fit-content;
