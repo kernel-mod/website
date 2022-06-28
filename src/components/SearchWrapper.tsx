@@ -114,10 +114,15 @@ export default function SearchWrapper(props: Props) {
 		}
 	};
 
-	const handleInput = value => {
+	const handleInput = (value) => {
 		setValue(value);
 		if (!open()) setOpen(true);
 	};
+
+    const handleClick = (event: MouseEvent) => {
+        event.stopPropagation();
+        setOpen(!open());
+    }
 
 	const handleOuterClick = (event: MouseEvent) => {
 		if (open() && !popoutElement?.contains(event.target as Node)) {
@@ -147,10 +152,7 @@ export default function SearchWrapper(props: Props) {
 				value={value()}
 				role="combobox"
 				autocomplete="off"
-				onClick={event => {
-					event.stopPropagation();
-					setOpen(!open());
-				}}
+				onClick={handleClick}
 				onInput={handleInput}
 				onKeydown={handleKeyDown}
 				aria-controls={popoutId}
