@@ -2,7 +2,7 @@
     0% {
         opacity: 0;
         transform: translateY(-10px);
-        max-block-size: 0;
+        max-block-size: clamp(120px, 30vh, 384px);
     }
     50% {
         transform: translateY(0);
