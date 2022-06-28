@@ -5,7 +5,7 @@ import PageSection from "~/components/PageSection";
 import PageOutline from "~/components/PageOutline.astro";
 import Text from "~/components/Text";
 import ListItem from "~/components/ListItem";
-import SearchBar from "~/components/SearchBar";
+import SearchWrapper from "~/components/SearchWrapper";
 
 import Book from "~/icons/Book";
 import Edit from "~/icons/Edit";
@@ -17,14 +17,11 @@ import "~/styles/markdown.css";
 const { title, content = {} } = Astro.props;
 
 const currentPath = new URL(Astro.request.url).pathname.split("en")[1] || "/";
-const currentFile = `src/pages/docs${currentPath.replace(/\/$/, '') || "/index"}.md`;
+const currentFile = `src/pages/docs/en${currentPath.replace(/\/$/, '') || "/index"}.md`;
 
 // Categorize flat sidebar array
 const sidebarSections = DOCS_SIDEBAR.en.reduce((col, item, i) => {
-	if (i === 0 && !item.header) {
-        const pesudoSection = { text: "" };
-        col.push({ ...pesudoSection, children: [] });
-	}
+	if (i === 0 && !item.header) col.push({ text: "", children: [] });
 	if (item.header) {
 		col.push({ ...item, children: [] });
 	} else {
@@ -34,6 +31,26 @@ const sidebarSections = DOCS_SIDEBAR.en.reduce((col, item, i) => {
 }, []);
 const currentSection = sidebarSections.find(section => section.children.some(item => item.path === currentPath));
 const currentPage = currentSection?.children.find(item => item.path === currentPath);
+
+async function getDocs() {
+    const pages = await Astro.glob(`~/pages/docs/en/**/*.md`);
+
+    return pages?.map(page => {{
+        const path = page.url.split("/docs/en")[1] || "/";
+        const sidebarSection = sidebarSections.find(section => section.children.some(item => item.path === path));
+        const sidebarPage = sidebarSection?.children.find(item => item.path === path);
+
+        return {
+            content: page.rawContent(),
+            name: sidebarPage.name,
+            title: page.frontmatter.title,
+            category: sidebarSection.name,
+            path
+        }
+    }});
+}
+
+const docs = await getDocs();
 ---
 
 <BaseLayout {title}>
@@ -57,7 +74,12 @@ const currentPage = currentSection?.children.find(item => item.path === currentP
                 >
                     <Edit />
                 </a>
-                <SearchBar client:load placeholder="Search Docs..." />
+                <SearchWrapper
+                    client:load
+                    items={docs}
+                    site={Astro.site}
+                    placeholder="Search Docs"
+                />
             </div>
         </header>
         <div class="kernel-docs-splitter">
@@ -99,11 +121,7 @@ const currentPage = currentSection?.children.find(item => item.path === currentP
                     title={content.title}
                     headers={content.astro.headers}
                     aria-labelledby="kernel-page-outline-label"
-                >
-                    <Text variant="title" tag="h3" class="kernel-docs-sidebar-header" id="kernel-page-outline-label">
-                        On This Page
-                    </Text>
-                </PageOutline>
+                />
             </aside>
         </div>
     </PageSection>

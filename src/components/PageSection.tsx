@@ -15,7 +15,7 @@ const defaultProps = {
 };
 
 export default function PageSection(props: Props) {
-	const [merged, rest] = splitProps(mergeProps(defaultProps, props), [
+	const [local, rest] = splitProps(mergeProps(defaultProps, props), [
 		"children",
 		"class",
 		"tag"
@@ -23,11 +23,11 @@ export default function PageSection(props: Props) {
 
 	return (
 		<Dynamic
-			component={merged.tag}
-			class={`kernel-page-section ${merged.class}`}
+			component={local.tag}
+			class={`kernel-page-section ${local.class}`}
 			{...rest}
 		>
-			<div class="kernel-page-section-inner">{merged.children}</div>
+			<div class="kernel-page-section-inner">{local.children}</div>
 			<slot name="outer" />
 		</Dynamic>
 	);

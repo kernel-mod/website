@@ -12,11 +12,12 @@
 	"devDependencies": {
 		"@astrojs/sitemap": "^0.1.2",
 		"@astrojs/solid-js": "^0.1.4",
-		"astro": "^1.0.0-beta.47",
+		"astro": "1.0.0-beta.47",
 		"remark-shiki-twoslash": "^3.0.9",
 		"solid-js": "^1.4.4"
 	},
 	"dependencies": {
+		"flexsearch": "^0.7.21",
 		"prettier": "^2.7.1"
 	}
 }

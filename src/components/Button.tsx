@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function Button(props: Props) {
-	const [merged, rest] = splitProps(mergeProps(defaultProps, props), [
+	const [local, rest] = splitProps(mergeProps(defaultProps, props), [
 		"children",
 		"href",
 		"variant",
@@ -27,14 +27,14 @@ export default function Button(props: Props) {
 
 	return (
 		<Dynamic
-			class={`kernel-button variant-${merged.variant} ${merged.class}`}
-			disabled={merged.disabled}
-			component={merged.href ? "a" : "button"}
-            href={merged.href}
+			class={`kernel-button variant-${local.variant} ${local.class}`}
+			disabled={local.disabled}
+			component={local.href ? "a" : "button"}
+			href={local.href}
 			type="button"
 			{...rest}
 		>
-			{merged.children}
+			{local.children}
 		</Dynamic>
 	);
 }

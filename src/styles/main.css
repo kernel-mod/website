@@ -1,9 +1,9 @@
 @font-face {
-    font-family: "Manrope";
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-    src: url("/fonts/Manrope[wght].woff2") format("woff2");
+	font-family: "Manrope";
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+	src: url("/fonts/Manrope[wght].woff2") format("woff2");
 }
 
 :root,
@@ -65,7 +65,7 @@ dialog {
 
 html,
 body {
-    scroll-behavior: smooth;
+	scroll-behavior: smooth;
 	margin: 0;
 	padding: 0;
 	inline-size: 100%;

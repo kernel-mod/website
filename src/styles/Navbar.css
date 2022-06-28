@@ -36,16 +36,16 @@
 	font-size: 24px;
 	font-weight: 700;
 	text-decoration: none;
-    color: var(--kernel-foreground-primary);
-    transition: 150ms ease;
+	color: var(--kernel-foreground-primary);
+	transition: 150ms ease;
 }
 
 .kernel-navbar-title:hover {
-    opacity: 0.8;
+	opacity: 0.8;
 }
 
 .kernel-navbar-title:active {
-    opacity: 0.6;
+	opacity: 0.6;
 }
 
 @media only screen and (max-width: 768px) {

@@ -3,63 +3,77 @@ import { Show, splitProps, mergeProps } from "solid-js";
 import "~/styles/ListItem.css";
 
 const defaultProps = {
-    selected: false,
-    disabled: false
+	selected: false,
+	disabled: false
 };
 
 interface Props {
-    selected?: boolean;
-    class?: string;
-    [key: string]: any;
+	selected?: boolean;
+	class?: string;
+	[key: string]: any;
 }
 
 export default function ListItem(props: Props) {
-    const [merged, rest] = splitProps(mergeProps(defaultProps, props), [
-        "children",
-        "href",
-        "hreflang",
-        "download",
-        "ping",
-        "referrerpolicy",
-        "rel",
-        "target",
-        "type",
-        "selected",
-        "aria-current",
-        "class"
-    ]);
+	const [local, rest] = splitProps(mergeProps(defaultProps, props), [
+		"children",
+		"href",
+		"hreflang",
+		"download",
+		"ping",
+		"referrerpolicy",
+		"rel",
+		"target",
+		"type",
+		"selected",
+		"aria-current",
+		"class",
+        "tabindex"
+	]);
 
-    return (
-        <Show when={merged.href} fallback={(
-            <li
-                aria-selected={merged.selected}
-                class={`kernel-list-item ${merged.class}`}
-                classList={{ "selected": merged.selected }}
-                {...rest}
-            >
-                {merged.children}
-            </li>
-        )}>
-            <a
-                class="kernel-list-item-anchor"
-                href={merged.href}
-                hreflang={merged.hreflang}
-                download={merged.download}
-                ping={merged.ping}
-                referrerpolicy={merged.referrerpolicy}
-                rel={merged.rel}
-                target={merged.target}
-                type={merged.type}
-                aria-current={merged["aria-current"]}
-            >
-                <li
-                    class={`kernel-list-item ${merged.class}`}
-                    classList={{ "selected": merged.selected }}
-                    {...rest}
-                >
-                    {merged.children}
-                </li>
-            </a>
-        </Show>
-    );
+	return (
+		<Show
+			when={local.href}
+			fallback={
+				<li
+                    classList={{
+                        "kernel-list-item": true,
+                        selected: local.selected,
+                        [local.class]: !!local.class
+                    }}
+                    tabindex={local.tabindex}
+                    aria-selected={local.selected}
+					{...rest}
+				>
+					{local.children}
+				</li>
+			}
+		>
+			<a
+				class="kernel-list-item-anchor"
+				href={local.href}
+				hreflang={local.hreflang}
+				download={local.download}
+				ping={local.ping}
+				referrerpolicy={local.referrerpolicy}
+				rel={local.rel}
+				target={local.target}
+				type={local.type}
+                tabindex={local.tabindex}
+				aria-current={local["aria-current"]}
+			>
+				<li
+					classList={{
+                        "kernel-list-item": true,
+                        selected: local.selected,
+                        [local.class]: !!local.class
+                    }}
+                    tabindex={local.tabindex}
+					aria-selected={local.selected}
+					{...rest}
+				>
+					{local.children}
+				</li>
+			</a>
+		</Show>
+	);
 }

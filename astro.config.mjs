@@ -9,24 +9,25 @@ import twoslash from "remark-shiki-twoslash";
 
 // https://astro.build/config
 export default defineConfig({
+    site: "https://not-kernel-mod.netlify.app/",
 	integrations: [solid(), sitemap()],
-    markdown: {
-        shikiConfig: {
-            theme: "one-dark-pro"
-        }
-        // remarkPlugins: [
-        //     'remark-gfm',
+	markdown: {
+		shikiConfig: {
+			theme: "one-dark-pro"
+		}
+		// remarkPlugins: [
+		//     'remark-gfm',
 		// 	'remark-smartypants',
-        //     [twoslash.default, {
-        //         theme: "one-dark-pro"
-        //     }]
-        // ]
-    },
-    vite: {
-        resolve: {
-            alias: {
-                "~": path.resolve("./src")
-            }
-        }
-    }
+		//     [twoslash.default, {
+		//         theme: "one-dark-pro"
+		//     }]
+		// ]
+	},
+	vite: {
+		resolve: {
+			alias: {
+				"~": path.resolve("./src")
+			}
+		}
+	}
 });

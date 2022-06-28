@@ -21,7 +21,7 @@ export default function Text(props: Props) {
 	const [local, rest] = splitProps(mergeProps(defaultProps, props), [
 		"variant",
 		"tag",
-        "children",
+		"children",
 		"class"
 	]);
 
@@ -34,7 +34,7 @@ export default function Text(props: Props) {
 			component={local.tag || defaultTags[local.variant]}
 			{...rest}
 		>
-            {local.children}
-        </Dynamic>
+			{local.children}
+		</Dynamic>
 	);
 }

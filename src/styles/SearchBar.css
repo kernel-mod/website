@@ -2,7 +2,6 @@
 	position: relative;
 	display: flex;
 	align-items: center;
-	overflow: hidden;
 	inline-size: 100%;
 	block-size: 28px;
 	background-color: var(--kernel-background-primary);
@@ -54,10 +53,9 @@
 	background-color: var(--kernel-search-bar-button-color);
 	color: var(--kernel-accent-primary);
 	transition: 150ms ease;
-}
-
-.kernel-search-bar-button:disabled {
-	cursor: default;
+    border-radius: 0;
+	border-start-end-radius: 4px;
+	border-end-end-radius: 4px;
 }
 
 .kernel-search-bar-button::before {
@@ -72,12 +70,12 @@
 	transition: inherit;
 }
 
-.kernel-search-bar-button:not(:disabled):hover {
+.kernel-search-bar-button:hover {
 	--kernel-search-bar-button-color: var(--kernel-interactive-secondary);
 }
 
-.kernel-search-bar-button:not(:disabled) .kernel-search-bar-clear-icon,
-.kernel-search-bar-button:disabled .kernel-search-bar-search-icon {
+.kernel-search-bar-button[type="submit"] .kernel-search-bar-search-icon,
+.kernel-search-bar-button[type="button"] .kernel-search-bar-clear-icon {
 	transform: rotate(0);
 	opacity: 1;
 }

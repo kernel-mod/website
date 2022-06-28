@@ -6,19 +6,22 @@ import CloseIcon from "~/icons/Close";
 import "~/styles/SearchBar.css";
 
 interface Props {
-	value: string;
+	value?: string;
 	placeholder?: string;
 	disabled?: boolean;
 	readonly?: boolean;
 	class?: string;
-    children?: never;
+	children?: any;
 	onInput?: (value: string) => void;
+	buttonProps?: { [key: string]: any };
+    [key: string]: any;
 }
 
 const defaultProps = {
 	value: "",
 	readonly: false,
-	disabled: false
+	disabled: false,
+	buttonProps: {}
 };
 
 export default function SearchBar(props: Props) {
@@ -28,7 +31,8 @@ export default function SearchBar(props: Props) {
 		"disabled",
 		"readonly",
 		"class",
-        "children",
+		"children",
+		"buttonProps",
 		"onInput"
 	]);
 	const [value, setValue] = createSignal(local.value);
@@ -38,6 +42,12 @@ export default function SearchBar(props: Props) {
 		local.onInput?.(value);
 	};
 
+	const handleButtonClick = () => {
+		if (value().length > 0) {
+			handleInput("");
+		}
+	};
+
 	return (
 		<div class={`kernel-search-bar ${local.class}`}>
 			<input
@@ -45,20 +55,21 @@ export default function SearchBar(props: Props) {
 				class="kernel-search-bar-input"
 				value={value()}
 				placeholder={local.placeholder}
-				onInput={event =>
-					handleInput((event.target as HTMLInputElement).value)
-				}
+				onInput={event => handleInput((event.target as HTMLInputElement).value)}
 				{...rest}
 			/>
 			<button
+                tabindex="-1"
 				class="kernel-search-bar-button"
-				disabled={!value().length || local.disabled || local.readonly}
-				title={value().length > 0 ? "Clear search value" : undefined}
-				onClick={() => handleInput("")}
+				type={value().length > 0 ? "button" : "submit"}
+				title={value().length > 0 ? "Clear search value" : "Search"}
+				onClick={handleButtonClick}
+				{...local.buttonProps}
 			>
 				<CloseIcon class="kernel-search-bar-clear-icon" />
 				<SearchIcon class="kernel-search-bar-search-icon" />
 			</button>
+			{local.children}
 		</div>
 	);
 }
