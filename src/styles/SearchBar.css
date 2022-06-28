@@ -53,7 +53,7 @@
 	background-color: var(--kernel-search-bar-button-color);
 	color: var(--kernel-accent-primary);
 	transition: 150ms ease;
-    border-radius: 0;
+	border-radius: 0;
 	border-start-end-radius: 4px;
 	border-end-end-radius: 4px;
 }

@@ -9,7 +9,7 @@ import twoslash from "remark-shiki-twoslash";
 
 // https://astro.build/config
 export default defineConfig({
-    site: "https://not-kernel-mod.netlify.app/",
+	site: "https://not-kernel-mod.netlify.app/",
 	integrations: [solid(), sitemap()],
 	markdown: {
 		shikiConfig: {

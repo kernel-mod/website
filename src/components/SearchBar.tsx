@@ -14,7 +14,7 @@ interface Props {
 	children?: any;
 	onInput?: (value: string) => void;
 	buttonProps?: { [key: string]: any };
-    [key: string]: any;
+	[key: string]: any;
 }
 
 const defaultProps = {
@@ -59,7 +59,7 @@ export default function SearchBar(props: Props) {
 				{...rest}
 			/>
 			<button
-                tabindex="-1"
+				tabindex="-1"
 				class="kernel-search-bar-button"
 				type={value().length > 0 ? "button" : "submit"}
 				title={value().length > 0 ? "Clear search value" : "Search"}

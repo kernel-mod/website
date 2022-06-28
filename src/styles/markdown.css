@@ -37,8 +37,9 @@
 }
 
 .kernel-markdown-body code {
-    font-size: 14px;
-    font-family: "Cascadia Code", "Consolas", "Menlo", "Monaco", "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace, serif;
+	font-size: 14px;
+	font-family: "Cascadia Code", "Consolas", "Menlo", "Monaco", "Lucida Console", "Liberation Mono", "DejaVu Sans Mono",
+		"Bitstream Vera Sans Mono", "Courier New", monospace, serif;
 	padding: 2px;
 	border-radius: 4px;
 	background-color: var(--kernel-background-primary);

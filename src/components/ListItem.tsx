@@ -27,7 +27,7 @@ export default function ListItem(props: Props) {
 		"selected",
 		"aria-current",
 		"class",
-        "tabindex"
+		"tabindex"
 	]);
 
 	return (
@@ -35,13 +35,13 @@ export default function ListItem(props: Props) {
 			when={local.href}
 			fallback={
 				<li
-                    classList={{
-                        "kernel-list-item": true,
-                        selected: local.selected,
-                        [local.class]: !!local.class
-                    }}
-                    tabindex={local.tabindex}
-                    aria-selected={local.selected}
+					classList={{
+						"kernel-list-item": true,
+						selected: local.selected,
+						[local.class]: !!local.class
+					}}
+					tabindex={local.tabindex}
+					aria-selected={local.selected}
 					{...rest}
 				>
 					{local.children}
@@ -58,16 +58,16 @@ export default function ListItem(props: Props) {
 				rel={local.rel}
 				target={local.target}
 				type={local.type}
-                tabindex={local.tabindex}
+				tabindex={local.tabindex}
 				aria-current={local["aria-current"]}
 			>
 				<li
 					classList={{
-                        "kernel-list-item": true,
-                        selected: local.selected,
-                        [local.class]: !!local.class
-                    }}
-                    tabindex={local.tabindex}
+						"kernel-list-item": true,
+						selected: local.selected,
+						[local.class]: !!local.class
+					}}
+					tabindex={local.tabindex}
 					aria-selected={local.selected}
 					{...rest}
 				>

@@ -1,13 +1,4 @@
-import {
-    Show,
-    For,
-    createSignal,
-    createEffect,
-    splitProps,
-    mergeProps,
-    onMount,
-    onCleanup
-} from "solid-js";
+import { Show, For, createSignal, createEffect, splitProps, mergeProps, onMount, onCleanup } from "solid-js";
 import { init, search } from "~/lib/search";
 
 import SearchBar from "./SearchBar";
@@ -90,14 +81,14 @@ export default function SearchWrapper(props: Props) {
 		const { key } = event;
 
 		if (open()) {
-            const itemElements = popoutElement?.querySelectorAll(".kernel-search-result");
-            const keyMap = {
-                ArrowUp: activeResult() !== 0 ? activeResult() - 1 : results().length - 1,
-                ArrowDown: activeResult() !== results().length - 1 ? activeResult() + 1 : 0,
-                Home: 0,
-                End: results().length - 1
-            };
-            
+			const itemElements = popoutElement?.querySelectorAll(".kernel-search-result");
+			const keyMap = {
+				ArrowUp: activeResult() !== 0 ? activeResult() - 1 : results().length - 1,
+				ArrowDown: activeResult() !== results().length - 1 ? activeResult() + 1 : 0,
+				Home: 0,
+				End: results().length - 1
+			};
+
 			if (keyMap.hasOwnProperty(key) || key === "Enter" || key === "Escape") event.preventDefault();
 			if (keyMap.hasOwnProperty(key)) {
 				setActiveResult(keyMap[key]);
@@ -111,42 +102,42 @@ export default function SearchWrapper(props: Props) {
 				setOpen(false);
 			}
 		} else {
-            const keyMap = {
-                ArrowUp: results().length - 1,
-                ArrowDown: 0,
-            }
-            
-            setOpen(true);
-            if (event.altKey) {
-                setActiveResult(keyMap[key]);
-            }
-        }
+			const keyMap = {
+				ArrowUp: results().length - 1,
+				ArrowDown: 0
+			};
+
+			setOpen(true);
+			if (event.altKey) {
+				setActiveResult(keyMap[key]);
+			}
+		}
 	};
 
-    const handleInput = (value) => {
-        setValue(value);
-        if (!open()) setOpen(true);
-    }
+	const handleInput = value => {
+		setValue(value);
+		if (!open()) setOpen(true);
+	};
 
-    const handleOuterClick = (event: MouseEvent) => {
-        if (open() && !popoutElement?.contains(event.target as Node)) {
-            setOpen(false);
-        }
-    }
+	const handleOuterClick = (event: MouseEvent) => {
+		if (open() && !popoutElement?.contains(event.target as Node)) {
+			setOpen(false);
+		}
+	};
 
 	createEffect(() => init(props.items));
 	createEffect(() => {
 		setResults(value() ? search(value()).map(r => local.items.find(i => i.path === r)) : local.items);
-        setActiveResult(null);
+		setActiveResult(0);
 	});
 
-    onMount(() => {
-        window.addEventListener("click", handleOuterClick);
-    });
+	onMount(() => {
+		window.addEventListener("click", handleOuterClick);
+	});
 
-    onCleanup(() => {
-        window.removeEventListener("click", handleOuterClick);
-    })
+	onCleanup(() => {
+		window.removeEventListener("click", handleOuterClick);
+	});
 
 	return (
 		<form method="get" action="https://www.google.com/search" onSubmit={event => event.preventDefault()}>
@@ -156,10 +147,10 @@ export default function SearchWrapper(props: Props) {
 				value={value()}
 				role="combobox"
 				autocomplete="off"
-                onClick={event => {
-                    event.stopPropagation();
-                    setOpen(!open());
-                }}
+				onClick={event => {
+					event.stopPropagation();
+					setOpen(!open());
+				}}
 				onInput={handleInput}
 				onKeydown={handleKeyDown}
 				aria-controls={popoutId}

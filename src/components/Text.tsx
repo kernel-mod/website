@@ -18,12 +18,7 @@ const defaultTags = {
 };
 
 export default function Text(props: Props) {
-	const [local, rest] = splitProps(mergeProps(defaultProps, props), [
-		"variant",
-		"tag",
-		"children",
-		"class"
-	]);
+	const [local, rest] = splitProps(mergeProps(defaultProps, props), ["variant", "tag", "children", "class"]);
 
 	return (
 		<Dynamic

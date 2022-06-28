@@ -35,10 +35,7 @@ Place these in the new `app` folder you made. Don't forget to change the `"locat
 
 ```js
 const path = require("path");
-require(path.join(
-	require(path.join(__dirname, "package.json")).location,
-	"kernel.asar"
-));
+require(path.join(require(path.join(__dirname, "package.json")).location, "kernel.asar"));
 ```
 
 #### `package.json`
