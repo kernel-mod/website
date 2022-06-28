@@ -3,7 +3,8 @@
 	inline-size: 100%;
 	block-size: fit-content;
 	position: relative;
-	z-index: 1;
+    overflow: hidden;
+	z-index: 2;
 }
 
 .kernel-navbar-inner {

@@ -243,6 +243,12 @@ const docs = await getDocs();
         padding: 48px;
     }
 
+    @media only screen and (max-width: 768px) {
+        .kernel-docs-content {
+            padding: 24px;
+        }
+    }
+
     .kernel-docs-content :global(*:target) {
         scroll-margin-top: 64px;
     }

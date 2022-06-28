@@ -36,10 +36,10 @@ import Text from "~/components/Text";
 <style>
     @keyframes rotate {
         0% {
-            transform: rotate(0deg);
+            transform: rotate(0deg) var(--transform);
         }
         100% {
-            transform: rotate(360deg);
+            transform: rotate(360deg) var(--transform);
         }
     }
     
@@ -102,10 +102,12 @@ import Text from "~/components/Text";
 
     .kernel-hero-buttons {
         display: flex;
+        flex-wrap: wrap;
         gap: 12px;
     }
 
     .kernel-hero-buttons :global(.kernel-button) {
+        flex: 1 1 auto;
         padding-block: 16px;
     }
 
@@ -119,5 +121,22 @@ import Text from "~/components/Text";
 
     :global(.kernel-atom) {
         animation: rotate 400s linear infinite;
+    }
+
+    @media only screen and (max-width: 768px) {
+        main :global(#hero-section) {
+            text-align: left;
+        }
+
+        .kernel-hero-contents {
+            align-items: flex-start;
+        }
+
+    }
+    
+    @media only screen and (max-width: 1024px) {
+        :global(.kernel-atom) {
+            --transform: scale(0.7);
+        }
     }
 </style>
