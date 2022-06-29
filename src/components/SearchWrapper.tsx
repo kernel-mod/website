@@ -107,10 +107,14 @@ export default function SearchWrapper(props: Props) {
 				ArrowDown: 0
 			};
 
-			setOpen(true);
-			if (event.altKey) {
-				setActiveResult(keyMap[key]);
-			}
+            if (keyMap[key]) {
+                setOpen(true);
+                
+                if (event.altKey) {
+                    setActiveResult(keyMap[key]);
+                }
+            }
+
 		}
 	};
 
