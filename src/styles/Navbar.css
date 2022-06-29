@@ -14,10 +14,13 @@
 	max-inline-size: 1280px;
 	padding: 24px;
 	margin-inline: auto;
+    gap: 36px;
 }
 
-.kernel-navbar-links,
-.kernel-navbar-actions {
+.kernel-navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 	gap: 36px;
 	display: flex;
 	align-items: center;
@@ -49,8 +52,17 @@
 	opacity: 0.6;
 }
 
+.kernel-navbar-title span {
+    margin-inline-start: 4px;
+}
+
 @media only screen and (max-width: 768px) {
 	.kernel-navbar-inner {
 		padding-block: 12px;
 	}
+    .kernel-navbar-inner,
+    .kernel-navbar-links,
+    .kernel-navbar-actions {
+        gap: 24px;
+    }
 }

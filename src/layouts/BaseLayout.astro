@@ -43,14 +43,16 @@ const { title } = Astro.props as Props;
             <NavbarLink href="/packages">Packages</NavbarLink>
             <Fragment slot="actions">
                 <NavbarLink href={`https://discord.gg/${DISCORD_INVITE_CODE}`}>Discord</NavbarLink>
-                <Button
-                    class="kernel-navbar-button"
-                    href={GITHUB_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    GitHub
-                </Button>
+                <li>
+                    <Button
+                        class="kernel-navbar-button"
+                        href={GITHUB_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        GitHub
+                    </Button>
+                </li>
             </Fragment>
         </Navbar>
 

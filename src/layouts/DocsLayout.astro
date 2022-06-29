@@ -243,12 +243,6 @@ const docs = await getDocs();
         padding: 48px;
     }
 
-    @media only screen and (max-width: 768px) {
-        .kernel-docs-content {
-            padding: 24px;
-        }
-    }
-
     .kernel-docs-content :global(*:target) {
         scroll-margin-top: 64px;
     }
@@ -265,6 +259,21 @@ const docs = await getDocs();
         inline-size: 200px;
         padding-inline: 12px;
         padding-block: 24px;
+    }
+
+    @media only screen and (max-width: 960px) {
+        .kernel-docs-content {
+            padding: 24px;
+        }
+        .kernel-page-outline-column {
+            display: none;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .kernel-docs-sidebar {
+            display: none;
+        }
     }
 
     .kernel-docs-sidebar-header {
