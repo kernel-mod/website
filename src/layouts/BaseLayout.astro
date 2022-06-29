@@ -38,6 +38,7 @@ const { title } = Astro.props as Props;
     </head>
 
     <body>
+        <Button class="kernel-skip-to-content" href="#content">Skip to content</Button>
         <Navbar title="Kernel">
             <NavbarLink href="/docs">Docs</NavbarLink>
             <NavbarLink href="/packages">Packages</NavbarLink>
@@ -69,5 +70,17 @@ const { title } = Astro.props as Props;
     .kernel-navbar-button.variant-default {
         background-color: transparent;
         border: 1px solid var(--kernel-foreground-secondary);
+    }
+
+    .kernel-skip-to-content {
+        z-index: 9999;
+        position: absolute;
+        inset-inline-start: 0;
+        inset-block-start: 0;
+        transform: translateY(-100%);
+    }
+
+    .kernel-skip-to-content:focus-visible {
+        transform: none;
     }
 </style>

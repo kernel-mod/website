@@ -52,6 +52,15 @@
 	opacity: 0.6;
 }
 
+.kernel-navbar-title svg {
+    inline-size: 32px;
+    block-size: auto;
+}
+
+.kernel-navbar-title svg path {
+    stroke: var(--kernel-accent-primary);
+}
+
 .kernel-navbar-title span {
     margin-inline-start: 4px;
 }
