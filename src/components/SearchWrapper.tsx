@@ -107,26 +107,25 @@ export default function SearchWrapper(props: Props) {
 				ArrowDown: 0
 			};
 
-            if (keyMap[key]) {
-                setOpen(true);
-                
-                if (event.altKey) {
-                    setActiveResult(keyMap[key]);
-                }
-            }
+			if (keyMap[key]) {
+				setOpen(true);
 
+				if (event.altKey) {
+					setActiveResult(keyMap[key]);
+				}
+			}
 		}
 	};
 
-	const handleInput = (value) => {
+	const handleInput = value => {
 		setValue(value);
 		if (!open()) setOpen(true);
 	};
 
-    const handleClick = (event: MouseEvent) => {
-        event.stopPropagation();
-        setOpen(!open());
-    }
+	const handleClick = (event: MouseEvent) => {
+		event.stopPropagation();
+		setOpen(!open());
+	};
 
 	const handleOuterClick = (event: MouseEvent) => {
 		if (open() && !popoutElement?.contains(event.target as Node)) {

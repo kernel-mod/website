@@ -14,7 +14,7 @@ import { DOCS_SIDEBAR, GITHUB_EDIT_URL } from "~/config";
 
 import "~/styles/markdown.css";
 
-const { title, content = {} } = Astro.props;
+const { content = {} } = Astro.props;
 
 const currentPath = new URL(Astro.request.url).pathname.split("en")[1] || "/";
 const currentFile = `src/pages/docs/en${currentPath.replace(/\/$/, '') || "/index"}.md`;
@@ -53,7 +53,7 @@ async function getDocs() {
 const docs = await getDocs();
 ---
 
-<BaseLayout {title}>
+<BaseLayout title={`Kernel - Docs - ${content.title}`}>
     <PageSection class="kernel-docs-wrapper">
         <header class="kernel-docs-header">
             <div class="kernel-docs-header-info">

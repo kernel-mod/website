@@ -3,9 +3,9 @@
 		opacity: 0;
 		transform: translateY(-10px);
 	}
-    100% {
-        transform: translateY(0);
-        opacity: 1;
+	100% {
+		transform: translateY(0);
+		opacity: 1;
 	}
 }
 
@@ -37,7 +37,7 @@
 	overflow: overlay;
 	block-size: fit-content;
 	inline-size: 400px;
-    max-inline-size: calc(100vw -    24px);
+	max-inline-size: calc(100vw - 24px);
 	max-block-size: clamp(240px, 60vh, 768px);
 	border-radius: 8px;
 	scroll-padding: 50px;
@@ -87,7 +87,10 @@
 
 .kernel-search-result {
 	margin-block-start: 8px;
-	padding-inline: 16px;
+}
+
+.kernel-search-result .kernel-list-item-inner {
+    padding-inline: 16px;
 }
 
 .kernel-search-result::before {

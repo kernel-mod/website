@@ -26,7 +26,7 @@ dialog {
 	--kernel-background-primary: hsl(var(--kernel-base-hue), 5%, 11%);
 	--kernel-background-secondary: hsl(var(--kernel-base-hue), 5%, 9%);
 	--kernel-background-tertiary: hsl(var(--kernel-base-hue), 3%, 8%);
-    --kernel-background-quarternary: hsl(var(--kernel-base-hue), 3%, 7%);
+	--kernel-background-quarternary: hsl(var(--kernel-base-hue), 3%, 7%);
 	--kernel-background-danger: hsl(0deg 100% 68%);
 
 	--kernel-interactive-primary: hsl(var(--kernel-base-hue), 7%, 15%);
@@ -61,7 +61,7 @@ dialog {
 
 html,
 body {
-    background-color: var(--kernel-background-quarternary);
+	background-color: var(--kernel-background-quarternary);
 	scroll-behavior: smooth;
 	margin: 0;
 	padding: 0;

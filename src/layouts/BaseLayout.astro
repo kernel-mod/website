@@ -27,9 +27,7 @@ const { title } = Astro.props as Props;
         <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
 
         <!-- Preload Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="preload" href="/fonts/Manrope[wght].woff2" as="font" crossorigin="anonymous">
 
         <!-- Scrollable a11y code helper -->
         <script type="module" src="/code-scrolling-fix.js" />

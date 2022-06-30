@@ -34,19 +34,19 @@ const { title = "Overview", headers, ...rest } = Astro.props;
         margin-bottom: 2px;
     }
 
-    .kernel-page-outline :global(.kernel-list-item.depth-1) {
-        padding-inline-start: 12px;
-    }
-
     .kernel-page-outline :global(.kernel-list-item.depth-1)::before {
         content: none;
     }
 
-    .kernel-page-outline :global(.kernel-list-item.depth-2) {
+    .kernel-page-outline :global(.kernel-list-item.depth-1 .kernel-list-item-inner) {
+        padding-inline-start: 12px;
+    }
+
+    .kernel-page-outline :global(.kernel-list-item.depth-2) .kernel-list-item-inner {
         padding-inline-start: 36px;
     }
 
-    .kernel-page-outline :global(.kernel-list-item.depth-3) {
+    .kernel-page-outline :global(.kernel-list-item.depth-3 .kernel-list-item-inner) {
         padding-inline-start: 60px;
     }
 </style>
