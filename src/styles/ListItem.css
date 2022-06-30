@@ -1,11 +1,10 @@
-
 .kernel-list-item {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 	list-style-type: none;
 	user-select: none;
 	position: relative;
-    border-radius: 4px;
+	border-radius: 4px;
 }
 
 .kernel-list-item::before {
@@ -20,14 +19,14 @@
 }
 
 .kernel-list-item-inner {
-    flex: 1 1 auto;
-    display: flex;
+	flex: 1 1 auto;
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	text-decoration: none;
-    color: var(--kernel-foreground-secondary);
+	color: var(--kernel-foreground-secondary);
 	font-size: 13px;
-    padding-inline: 24px 12px;
+	padding-inline: 24px 12px;
 	padding-block: 6px;
 }
 

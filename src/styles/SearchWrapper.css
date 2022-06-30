@@ -90,7 +90,7 @@
 }
 
 .kernel-search-result .kernel-list-item-inner {
-    padding-inline: 16px;
+	padding-inline: 16px;
 }
 
 .kernel-search-result::before {

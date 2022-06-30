@@ -234,7 +234,9 @@ export default function SearchWrapper(props: Props) {
 																}`}
 																href={`/docs/en${page.path}`}
 																selected={location.pathname === `/docs/en${page.path}`}
-                                                                aria-selected={location.pathname === `/docs/en${page.path}`}
+																aria-selected={
+																	location.pathname === `/docs/en${page.path}`
+																}
 															>
 																<Text
 																	class="kernel-search-result-title"
