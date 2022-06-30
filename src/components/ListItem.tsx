@@ -38,7 +38,6 @@ export default function ListItem(props: Props) {
 				[local.class]: !!local.class
 			}}
 			tabindex={local.tabindex}
-			aria-selected={local.selected ?? undefined}
 			{...rest}
 		>
 			<Dynamic
