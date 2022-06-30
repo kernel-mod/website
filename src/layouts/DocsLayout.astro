@@ -270,21 +270,6 @@ const docs = await getDocs();
         padding-block: 24px;
     }
 
-    @media only screen and (max-width: 960px) {
-        .kernel-docs-content {
-            padding: 24px;
-        }
-        .kernel-page-outline-column {
-            display: none;
-        }
-    }
-
-    @media only screen and (max-width: 768px) {
-        .kernel-docs-sidebar {
-            display: none;
-        }
-    }
-
     .kernel-docs-sidebar-header {
         padding-inline: 12px;
         padding-block: 6px;
@@ -312,7 +297,22 @@ const docs = await getDocs();
         }
 
         .kernel-docs-header-actions :global(.kernel-search-bar) {
-            max-inline-size: 32vw;
+            max-inline-size: 36vw;
+        }
+    }
+
+    @media only screen and (max-width: 960px) {
+        .kernel-docs-content {
+            padding: 24px;
+        }
+        .kernel-page-outline-column {
+            display: none;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .kernel-docs-sidebar {
+            display: none;
         }
 
         .kernel-docs-header-actions :global(.kernel-search-bar):focus-within {
@@ -323,6 +323,10 @@ const docs = await getDocs();
             max-inline-size: 100vw;
             top: 50%;
             left: 0;
+        }
+
+        :global(.kernel-docs-header-breadcrumb) {
+            font-size: 14px;
         }
     }
 </style>

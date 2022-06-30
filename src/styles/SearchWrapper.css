@@ -37,6 +37,7 @@
 	overflow: overlay;
 	block-size: fit-content;
 	inline-size: 400px;
+    max-inline-size: calc(100vw -    24px);
 	max-block-size: clamp(240px, 60vh, 768px);
 	border-radius: 8px;
 	scroll-padding: 50px;
