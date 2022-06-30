@@ -53,7 +53,11 @@ async function getDocs() {
 const docs = await getDocs();
 ---
 
-<BaseLayout title={`Kernel - Docs - ${content.title}`}>
+<BaseLayout
+    title={`Kernel - Docs - ${content.title}`}
+    type="article"
+    description="Kernel gives you full control over electron applications with powerful custom JavaScript packages and APIs for tinkering."
+>
     <PageSection class="kernel-docs-wrapper">
         <header class="kernel-docs-header">
             <div class="kernel-docs-header-info">
