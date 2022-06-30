@@ -172,6 +172,13 @@ const docs = await getDocs();
 
     .kernel-docs-header-info {
         flex: 1 1 auto;
+        overflow: hidden;
+    }
+
+    .kernel-docs-header-breadcrumb {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     .kernel-breadcrumb-separator {
@@ -179,6 +186,7 @@ const docs = await getDocs();
     }
 
     .kernel-docs-header-actions {
+        margin-inline-start: 8px;
         flex: 0 0 auto;
         gap: 8px;
     }
@@ -213,6 +221,7 @@ const docs = await getDocs();
     }
 
     .kernel-docs-header-icon {
+        flex: 0 0 auto;
         inline-size: 16px;
         block-size: auto;
         fill: currentColor;
@@ -300,6 +309,20 @@ const docs = await getDocs();
 
         :global(.kernel-navbar .kernel-navbar-inner) {
             padding-block: 12px;
+        }
+
+        .kernel-docs-header-actions :global(.kernel-search-bar) {
+            max-inline-size: 32vw;
+        }
+
+        .kernel-docs-header-actions :global(.kernel-search-bar):focus-within {
+            margin: 0 12px;
+            transform: translateY(-50%);
+            position: absolute;
+            inline-size: calc(100% - 24px);
+            max-inline-size: 100vw;
+            top: 50%;
+            left: 0;
         }
     }
 </style>
