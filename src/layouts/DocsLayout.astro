@@ -20,7 +20,7 @@ const currentPath = new URL(Astro.request.url).pathname.split("en")[1] || "/";
 const currentFile = `src/pages/docs/en${currentPath.replace(/\/$/, '') || "/index"}.md`;
 
 // Categorize flat sidebar array
-const sidebarSections = DOCS_SIDEBAR.en.reduce((col, item, i) => {
+const sidebarCategories = DOCS_SIDEBAR.en.reduce((col, item, i) => {
 	if (i === 0 && !item.header) col.push({ text: "", children: [] });
 	if (item.header) {
 		col.push({ ...item, children: [] });
@@ -29,22 +29,22 @@ const sidebarSections = DOCS_SIDEBAR.en.reduce((col, item, i) => {
 	}
 	return col;
 }, []);
-const currentSection = sidebarSections.find(section => section.children.some(item => item.path === currentPath));
-const currentPage = currentSection?.children.find(item => item.path === currentPath);
+const currentCategory = sidebarCategories.find(section => section.children.some(item => item.path === currentPath));
+const currentPage = currentCategory?.children.find(item => item.path === currentPath);
 
 async function getDocs() {
     const pages = await Astro.glob(`~/pages/docs/en/**/*.md`);
 
     return pages?.map(page => {{
         const path = page.url.split("/docs/en")[1] || "/";
-        const sidebarSection = sidebarSections.find(section => section.children.some(item => item.path === path));
-        const sidebarPage = sidebarSection?.children.find(item => item.path === path);
+        const sidebarCategory = sidebarCategories.find(section => section.children.some(item => item.path === path));
+        const sidebarPage = sidebarCategory?.children.find(item => item.path === path);
 
         return {
             content: page.rawContent(),
             name: sidebarPage.name,
             title: page.frontmatter.title,
-            category: sidebarSection.name,
+            category: sidebarCategory.name,
             path
         }
     }});
@@ -59,7 +59,7 @@ const docs = await getDocs();
             <div class="kernel-docs-header-info">
                 <Book class="kernel-docs-header-icon" />
                 <Text variant="title" class="kernel-docs-header-breadcrumb">
-                    {currentSection?.name}
+                    {currentCategory?.name}
                         <span class="kernel-breadcrumb-separator">{" > "}</span>
                     {currentPage?.name}
                 </Text>
@@ -85,27 +85,37 @@ const docs = await getDocs();
         <div class="kernel-docs-splitter">
             <aside class="kernel-docs-sidebar">
                 <nav>
-                    {DOCS_SIDEBAR.en.map(({ name, path }) => {
-                        return (
-                            path ? (
-                                <ListItem
-                                    aria-current={`${currentPath === path ? 'page' : 'false'}`}
-                                    selected={currentPath === path}
-                                    href={`/docs/en${path}`}
-                                >
-                                    {name}
-                                </ListItem>
-                            ) : (
+                    {sidebarCategories.map(({ name, path, header, children }) => (
+                        !header ? (
+                            <ListItem
+                                aria-current={`${currentPath === path ? 'page' : 'false'}`}
+                                selected={currentPath === path}
+                                href={`/docs/en${path}`}
+                            >
+                                {name}
+                            </ListItem>
+                        ) : (
+                            <ul class="kernel-docs-sidebar-category">
                                 <Text
                                     class="kernel-docs-sidebar-header"
                                     variant="title"
-                                    tag="h3"
+                                    tag="li"
+                                    role="presentation"
                                 >
-                                    {name}
+                                    <strong>{name}</strong>
                                 </Text>
-                            )
-                        );
-                    })}
+                                {children.map(({ name, path }) => (
+                                    <ListItem
+                                        aria-current={`${currentPath === path ? 'page' : 'false'}`}
+                                        selected={currentPath === path}
+                                        href={`/docs/en${path}`}
+                                    >
+                                        {name}
+                                    </ListItem>
+                                ))}
+                            </ul>
+                        )
+                    ))}
                 </nav>
             </aside>
             <article id="content" class="kernel-docs-content kernel-markdown-body">
@@ -270,15 +280,18 @@ const docs = await getDocs();
         padding-block: 24px;
     }
 
+    .kernel-docs-sidebar-category {
+        margin: 0;
+        padding: 0;
+        margin-block-end: 24px;
+    }
+
     .kernel-docs-sidebar-header {
+        list-style-type: none;
         padding-inline: 12px;
         padding-block: 6px;
         font-size: 12px;
         text-transform: uppercase;
-    }
-
-    :global(.kernel-docs-sidebar-header:not(:first-of-type)) {
-        margin-block-start: 24px;
     }
 
     @media only screen and (max-width: 1232px) {
