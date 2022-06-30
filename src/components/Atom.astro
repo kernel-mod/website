@@ -8,6 +8,7 @@
 
 <style>
     .kernel-atom {
+        transform: var(--transform);
         will-change: transform;
         display: flex;
         align-items: center;
@@ -56,6 +57,12 @@
             0px 0px 53.6px 2px hsla(var(--kernel-base-accent), 0.596),
             0px 0px 100.3px 2px hsla(var(--kernel-base-accent), 0.719),
             0px 0px 240px 2px hsla(var(--kernel-base-accent), 1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .kernel-electron {
+            display: none;
+        }
     }
 
     /* Generated from this sass loop: */

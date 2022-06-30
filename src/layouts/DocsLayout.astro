@@ -293,7 +293,9 @@ const docs = await getDocs();
         }
 
         :global(.kernel-navbar .kernel-navbar-inner) {
-            padding-block: 12px;
+            block-size: 56px;
+            padding-block: 0;
+            padding-inline: 16px;
         }
 
         .kernel-docs-header-actions :global(.kernel-search-bar) {
@@ -323,10 +325,6 @@ const docs = await getDocs();
             max-inline-size: 100vw;
             top: 50%;
             left: 0;
-        }
-
-        :global(.kernel-docs-header-breadcrumb) {
-            font-size: 14px;
         }
     }
 </style>

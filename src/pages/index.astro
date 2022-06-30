@@ -71,6 +71,8 @@ import Text from "~/components/Text";
         align-items: center;
         justify-content: center;
         min-block-size: 680px;
+        padding-block: 128px;
+        box-sizing: border-box;
     }
 
     :global(#hero-section .kernel-title) {
@@ -119,6 +121,19 @@ import Text from "~/components/Text";
 
     :global(.kernel-atom) {
         animation: rotate 400s linear infinite;
+        --transform: rotate(22.5deg);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        :global(.kernel-atom) {
+            animation: none;
+        }
+    }
+    
+    @media only screen and (max-width: 1024px) {
+        :global(.kernel-atom) {
+            --transform: rotate(22.5deg) scale(0.7);
+        }
     }
 
     @media only screen and (max-width: 768px) {
@@ -127,14 +142,12 @@ import Text from "~/components/Text";
         }
 
         .kernel-hero-contents {
+            min-block-size: 100vh;
             align-items: flex-start;
         }
 
-    }
-    
-    @media only screen and (max-width: 1024px) {
-        :global(.kernel-atom) {
-            --transform: scale(0.7);
+        :global(.kernel-navbar) {
+            mix-blend-mode: normal;
         }
     }
 </style>

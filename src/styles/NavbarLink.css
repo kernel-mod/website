@@ -1,4 +1,13 @@
+.kernel-navbar-link-wrapper {
+    display: flex;
+    list-style-type: none;
+}
+
 .kernel-navbar-link {
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex: 1 1 auto;
 	box-sizing: border-box;
 	text-decoration: none;
 	color: var(--kernel-foreground-tertiary);
@@ -10,3 +19,19 @@
 .kernel-navbar-link:focus {
 	outline: 1px solid var(--kernel-accent-faded);
 }
+
+.kernel-mobile-navigation-items .kernel-navbar-link {
+    color: var(--kernel-foreground-secondary);
+    font-size: 13px;
+    padding-inline: 12px;
+    padding-block: 6px;
+    border-radius: 4px;
+}
+
+.kernel-mobile-navigation-items .kernel-navbar-link:hover {
+    background-color: var(--kernel-background-primary);
+}
+
+.kernel-mobile-navigation-items .kernel-navbar-link:active {
+    background-color: var(--kernel-interactive-primary);
+}    

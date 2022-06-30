@@ -1,8 +1,10 @@
 ---
 import "~/styles/NavbarLink.css";
+
+const { selected } = Astro.props;
 ---
 
-<li>
+<li class={`kernel-navbar-link-wrapper ${selected ? "selected" : ""}`}>
     <a class="kernel-navbar-link" {...Astro.props}>
         <slot />
     </a>
