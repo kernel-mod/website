@@ -109,7 +109,7 @@ export default function SearchWrapper(props: Props) {
 
 	createEffect(() => init(props.items));
 	createEffect(() => {
-		setResults(value() ? search(value()).map(r => local.items.find(i => i.path === r.path)) : local.items);
+		setResults(value() ? search(value()).map(r => local.items.find(i => i.path === r)) : local.items);
 		setActiveResult(0);
 	});
 

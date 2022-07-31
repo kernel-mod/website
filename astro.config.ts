@@ -11,6 +11,7 @@ import twoslash from "remark-shiki-twoslash";
 // https://astro.build/config
 export default defineConfig({
 	site: "https://kernel.fish/",
+	output: "server",
 	adapter: vercel(),
 	integrations: [solid(), sitemap()],
 	markdown: {

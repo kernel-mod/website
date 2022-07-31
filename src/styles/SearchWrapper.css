@@ -60,7 +60,7 @@
 	padding-inline: 8px;
 }
 
-.kernel-search-results-group-title {
+.kernel-title.kernel-search-results-group-title {
 	position: sticky;
 	top: -1px;
 	z-index: 1;
@@ -78,7 +78,7 @@
 	margin: 0;
 }
 
-.kernel-search-result-title {
+.kernel-title.kernel-search-result-title {
 	list-style-type: none;
 	color: var(--kernel-foreground-secondary);
 	font-size: 14px;
