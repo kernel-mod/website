@@ -74,7 +74,7 @@ const results = query ? search(query).map(r => docs.find(i => i.path === r)) : d
             {(pages as Result[]).map(page => (
                 <li>
                     <a href={`/docs/${lang}${page.path}`}>
-                        <h2>{excerpt(page.title, query)}</h2>
+                        <h2 set:html={excerpt(page.title, query)} />
                         <p set:html={excerpt(cleanMarkdown(page.content), query)} />
                     </a>
                 </li>

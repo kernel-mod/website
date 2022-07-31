@@ -47,7 +47,6 @@ export function excerpt(content: string, query: string) {
 
 	const prefix = index > 20 ? `…${content.slice(index - 15, index)}` : content.slice(0, index);
 	const suffix = content.slice(index + query.length, index + query.length + (80 - (prefix.length + query.length)));
-
 	const highlighted = escape(content.slice(index, index + query.length));
 
 	return escape(prefix) + (highlighted ? `<mark>${highlighted}</mark>` : "") + escape(suffix);
