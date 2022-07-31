@@ -5,23 +5,26 @@ import PageSection from "~/components/PageSection";
 import Text from "~/components/Text";
 import BaseLayout from '~/layouts/BaseLayout.astro';
 
+// const APPS = ["Discord", "Slack", "VSCode", "Teams", "Figma"];
 ---
 
-<BaseLayout
-    title="Home - Kernel"
-    description="Kernel gives you full control over Electron applications with powerful custom JavaScript packages and APIs for tinkering."
->
+<BaseLayout title="Home - Kernel"
+    description="Kernel gives you full control over Electron applications with powerful custom JavaScript packages and APIs for tinkering.">
     <main>
         <PageSection id="hero-section">
             <div class="kernel-hero-contents" id="content">
-                <Text variant="title">The mod loader for <span class="kernel-title-highlight">idk 💀</span></Text>
+                <Text variant="title">
+                    The mod loader for <span class="kernel-title-highlight">Electron</span>
+                </Text>
                 <Text>
-                    Kernel gives you full control over Electron applications with powerful custom JavaScript <a href="/packages">packages</a> and <a href="/docs">APIs</a> for tinkering.
+                    Kernel gives you full control over Electron applications with powerful custom JavaScript <a
+                        href="/packages">packages</a> and <a href="/docs">APIs</a> for tinkering.
                 </Text>
                 <div class="kernel-hero-buttons">
                     <Button href="https://github.com/kernel-mod/installer-gui" variant="accent">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
-                            <path fill-rule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z" />
+                            <path fill-rule="evenodd"
+                                d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z" />
                         </svg>
                         Download
                     </Button>
@@ -39,11 +42,12 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
         0% {
             transform: rotate(0deg) var(--transform, scale(1));
         }
+
         100% {
             transform: rotate(360deg) var(--transform, scale(1));
         }
     }
-    
+
     :global(header.kernel-navbar) {
         position: absolute;
         inset: 0;
@@ -84,6 +88,8 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
     }
 
     .kernel-title-highlight {
+        overflow: hidden;
+        position: relative;
         color: var(--kernel-accent-primary);
     }
 
@@ -133,7 +139,7 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
             animation: none;
         }
     }
-    
+
     @media only screen and (max-width: 1024px) {
         :global(.kernel-atom) {
             --transform: rotate(22.5deg) scale(0.7);
