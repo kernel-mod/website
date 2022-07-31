@@ -1,5 +1,22 @@
-import { Show, For, createSignal, createEffect, splitProps, mergeProps, onMount, onCleanup } from "solid-js";
-import { init, search } from "~/lib/search";
+import type { Result } from "~/lib/search";
+
+import {
+	Show,
+	For,
+	createSignal,
+	createEffect,
+	splitProps,
+	mergeProps,
+	onMount,
+	onCleanup
+} from "solid-js";
+import { groupBy } from "~/lib/utils";
+import { cleanMarkdown } from "~/lib/docs";
+import {
+	init,
+	search,
+	excerpt
+} from "~/lib/search";
 
 import SearchBar from "./SearchBar";
 import ListItem from "./ListItem";
@@ -7,49 +24,7 @@ import Text from "./Text";
 
 import "~/styles/SearchWrapper.css";
 
-function escape(text) {
-	return text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
-function groupBy(array: any[], predicate: (v: any) => string) {
-	return array.reduce((acc, value) => {
-		(acc[predicate(value)] ||= []).push(value);
-		return acc;
-	}, {});
-}
-
-function excerpt(content, query) {
-	const index = content.toLowerCase().indexOf(query.toLowerCase());
-	if (index === -1) {
-		return content.slice(0, 100);
-	}
-	const prefix = index > 20 ? `…${content.slice(index - 15, index)}` : content.slice(0, index);
-	const suffix = content.slice(index + query.length, index + query.length + (80 - (prefix.length + query.length)));
-	return escape(prefix) + `<mark>${escape(content.slice(index, index + query.length))}</mark>` + escape(suffix);
-}
-
-function prettifyContent(content) {
-	return content
-		.split("\n")
-		.slice(1)
-		.join("\n")
-		.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-		.replace(/```.*/g, "")
-		.replace(/> /g, "")
-		.replace(/#+ /g, "")
-		.replace(/__?([^_]+)__?/g, "$1")
-		.replace(/\*\*?([^*]+)\*\*?/g, "$1");
-}
-
 const uid = () => Math.random().toString(36).slice(2);
-
-interface Result {
-	title: string;
-	name: string;
-	content: string;
-	path: string;
-	category: string;
-}
 
 interface Props {
 	items: Result[];
@@ -60,7 +35,6 @@ interface Props {
 
 const defaultProps = {
 	result: "",
-	site: "",
 	items: []
 };
 
@@ -135,7 +109,7 @@ export default function SearchWrapper(props: Props) {
 
 	createEffect(() => init(props.items));
 	createEffect(() => {
-		setResults(value() ? search(value()).map(r => local.items.find(i => i.path === r)) : local.items);
+		setResults(value() ? search(value()).map(r => local.items.find(i => i.path === r.path)) : local.items);
 		setActiveResult(0);
 	});
 
@@ -148,8 +122,7 @@ export default function SearchWrapper(props: Props) {
 	});
 
 	return (
-		<form method="get" action="https://www.google.com/search" onSubmit={event => event.preventDefault()}>
-			<input type="hidden" name="sitesearch" value={local.site} />
+		<form method="get" action="/docs/search" onSubmit={event => event.preventDefault()}>
 			<SearchBar
 				name="q"
 				value={value()}
@@ -247,7 +220,7 @@ export default function SearchWrapper(props: Props) {
 																<p
 																	class="kernel-search-result-content"
 																	innerHTML={excerpt(
-																		prettifyContent(page.content),
+																		cleanMarkdown(page.content),
 																		value()
 																	)}
 																></p>

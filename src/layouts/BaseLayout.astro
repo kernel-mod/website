@@ -5,8 +5,6 @@ import NavbarLink from "~/components/NavbarLink.astro";
 import { DISCORD_INVITE_CODE,GITHUB_URL } from "~/config";
 import "~/styles/main.css";
 
-
-
 const {
     title = "",
     type = "website",
@@ -78,6 +76,7 @@ const {
     }
 
     .kernel-skip-to-content {
+        transition: none;
         z-index: 9999;
         position: fixed;
         inset-inline-start: 0;

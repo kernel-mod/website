@@ -17,6 +17,7 @@
 		"solid-js": "^1.4.4"
 	},
 	"dependencies": {
+		"@astrojs/vercel": "^0.4.0",
 		"flexsearch": "^0.7.21",
 		"prettier": "^2.7.1"
 	}

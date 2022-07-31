@@ -1,4 +1,6 @@
 ---
+import type { Result } from "~/lib/search";
+
 import BaseLayout from "./BaseLayout.astro";
 
 import PageSection from "~/components/PageSection";
@@ -11,6 +13,7 @@ import Book from "~/icons/Book";
 import Edit from "~/icons/Edit";
 
 import { DOCS_SIDEBAR, GITHUB_EDIT_URL } from "~/config";
+import { categorizeSidebar } from "~/lib/docs";
 
 import "~/styles/markdown.css";
 
@@ -19,24 +22,16 @@ const { content = {} } = Astro.props;
 const currentPath = new URL(Astro.request.url).pathname.split("en")[1] || "/";
 const currentFile = `src/pages/docs/en${currentPath.replace(/\/$/, '') || "/index"}.md`;
 
-// Categorize flat sidebar array
-const sidebarCategories = DOCS_SIDEBAR.en.reduce((col, item, i) => {
-	if (i === 0 && !item.header) col.push({ text: "", children: [] });
-	if (item.header) {
-		col.push({ ...item, children: [] });
-	} else {
-		col[col.length - 1].children.push(item);
-	}
-	return col;
-}, []);
+const sidebarCategories = categorizeSidebar(DOCS_SIDEBAR);
 const currentCategory = sidebarCategories.find(section => section.children.some(item => item.path === currentPath));
 const currentPage = currentCategory?.children.find(item => item.path === currentPath);
 
-async function getDocs() {
-    const pages = await Astro.glob(`~/pages/docs/en/**/*.md`);
+async function getDocs(lang: string): Promise<Result[]> {
+    const pages = await Astro.glob(`~/pages/docs/**/*.md`);
+    const localizedPages = pages.filter(page => page.url.includes(`/${lang}/`));
 
-    return pages?.map(page => {{
-        const path = page.url.split("/docs/en")[1] || "/";
+    return localizedPages?.map(page => {{
+        const path = page.url.split(`/docs/${lang}`)[1] || "/";
         const sidebarCategory = sidebarCategories.find(section => section.children.some(item => item.path === path));
         const sidebarPage = sidebarCategory?.children.find(item => item.path === path);
 
@@ -50,7 +45,7 @@ async function getDocs() {
     }});
 }
 
-const docs = await getDocs();
+const docs = await getDocs("en");
 ---
 
 <BaseLayout
@@ -88,7 +83,6 @@ const docs = await getDocs();
                 <SearchWrapper
                     client:load
                     items={docs}
-                    site={Astro.site}
                     placeholder="Search Docs"
                 />
             </div>
