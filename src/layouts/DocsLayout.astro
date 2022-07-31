@@ -58,6 +58,13 @@ const docs = await getDocs();
     type="article"
     description="Kernel gives you full control over electron applications with powerful custom JavaScript packages and APIs for tinkering."
 >
+    <script slot="head" type="module">
+        // Scrollable codeblocks a11y fix
+        for (const element of document.getElementsByTagName("pre")) {
+            element.setAttribute("tabindex", 0);
+        }
+    </script>
+
     <PageSection class="kernel-docs-wrapper">
         <header class="kernel-docs-header">
             <div class="kernel-docs-header-info">

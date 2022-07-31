@@ -29,9 +29,6 @@ const {
         <!-- Preload Fonts -->
         <link rel="preload" href="/fonts/Manrope[wght].woff2" as="font" crossorigin="anonymous">
 
-        <!-- Scrollable a11y code helper -->
-        <script type="module" src="/code-scrolling-fix.js" />
-
         <title>{title}</title>
 
         <meta property="og:title" content={title} />
@@ -41,6 +38,8 @@ const {
         <!-- <meta property="og:image" content={canonicalImageSrc} /> -->
         <!-- <meta property="og:image:alt" content={imageAlt} /> -->
         <meta name="description" property="og:description" content={description} />
+
+        <slot name="head" />
     </head>
 
     <body>
