@@ -16,7 +16,6 @@
 	gap: 8px;
 	border: none;
 	outline: none;
-	cursor: pointer;
 	text-transform: uppercase;
 	transition: 150ms ease;
 }
