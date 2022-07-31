@@ -24,10 +24,11 @@ export default defineConfig({
 		// ]
 	},
 	vite: {
+		build: { sourcemap: true },
 		resolve: {
 			alias: {
 				"~": path.resolve("./src")
 			}
-		}
+		},
 	}
 });
