@@ -3,7 +3,7 @@ export const KNOWN_LANGUAGES = {
 };
 
 export const DISCORD_INVITE_CODE = `8mPTjTZ4SZ`;
-export const GITHUB_URL = `https://github.com/kernel-mod/electron`;
+export const GITHUB_URL = `https://github.com/kernel-mod/`;
 export const GITHUB_EDIT_URL = `https://github.com/kernel-mod/website/blob/master/`;
 
 export const DOCS_SIDEBAR = {
