@@ -6,6 +6,9 @@ import { DISCORD_INVITE_CODE,GITHUB_URL } from "~/config";
 import "~/styles/main.css";
 
 const {
+    name = "Kernel",
+    image = "/kernel-banner.png",
+    imageAlt = "Kernel Banner",
     title = "",
     type = "website",
     description = ""
@@ -29,12 +32,12 @@ const {
 
         <title>{title}</title>
 
+        <meta property="og:site_name" content={name} />
         <meta property="og:title" content={title} />
-        <meta property="og:site_name" content={title} />
         <meta property="og:type" content={type} />
         <meta property="og:url" content={Astro.canonicalURL} />
-        <!-- <meta property="og:image" content={canonicalImageSrc} /> -->
-        <!-- <meta property="og:image:alt" content={imageAlt} /> -->
+        <meta property="og:image" content={image} />
+        <meta property="og:image:alt" content={imageAlt} />
         <meta name="description" property="og:description" content={description} />
 
         <slot name="head" />
