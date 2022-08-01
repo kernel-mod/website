@@ -81,7 +81,7 @@ export default function SearchWrapper(props: Props) {
 				ArrowDown: 0
 			};
 
-			if (keyMap[key]) {
+			if (keyMap.hasOwnProperty(key)) {
 				setOpen(true);
 
 				if (event.altKey) {
