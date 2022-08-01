@@ -57,8 +57,8 @@ export default function SearchWrapper(props: Props) {
 		if (open()) {
 			const itemElements = popoutElement?.querySelectorAll(".kernel-search-result");
 			const keyMap = {
-				ArrowUp: activeResult() !== 0 ? activeResult() - 1 : results().length - 1,
-				ArrowDown: activeResult() !== results().length - 1 ? activeResult() + 1 : 0,
+				ArrowUp: (activeResult() + results().length - 1) % results().length,
+				ArrowDown: (activeResult() + results().length + 1) % results().length,
 				Home: 0,
 				End: results().length - 1
 			};
