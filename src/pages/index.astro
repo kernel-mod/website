@@ -1,9 +1,12 @@
 ---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+
 import Atom from "~/components/Atom.astro";
 import Button from "~/components/Button";
 import PageSection from "~/components/PageSection";
+import SectionChip from "~/components/SectionChip.astro";
+import CodeExample from "~/components/CodeExample.astro";
 import Text from "~/components/Text";
-import BaseLayout from '~/layouts/BaseLayout.astro';
 
 // const APPS = ["Discord", "Slack", "VSCode", "Teams", "Figma"];
 ---
@@ -16,7 +19,7 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
                 <Text variant="title">
                     The mod loader for <span class="kernel-title-highlight">Electron</span>
                 </Text>
-                <Text>
+                <Text tag="p">
                     Kernel gives you full control over Electron applications with powerful custom JavaScript <a
                         href="/packages">packages</a> and <a href="/docs">APIs</a> for tinkering.
                 </Text>
@@ -33,6 +36,46 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
             </div>
 
             <Atom />
+        </PageSection>
+        <PageSection id="flexibility-section">
+            <div class="kernel-flexibility-contents">
+                <SectionChip>Flexibility</SectionChip>
+                <Text variant="title">
+                    Full control over your apps.
+                </Text>
+                <Text tag="p">
+                    Kernel unlocks the potential to modify Electron applications across all three processes, giving powerful low-level access to community-made packages.
+                </Text>
+            </div>
+            <div class="kernel-flexibility-showcase">
+                <CodeExample
+                    glow
+                    hue={322}
+                    title="main.js"
+                    lang="js"
+                    code={`const path = require("path");
+
+module.exports = class PackageName {
+    start() {
+        console.log("Package loaded!", path);
+    }
+};`}
+                />
+                <CodeExample
+                    glow
+                    hue={226}
+                    title="renderer.js"
+                    lang="js"
+                    code={`// You can only import browser-friendly modules.
+import * as nests from "nests";
+
+export default class PackageName {
+    start() {
+        console.log("Package loaded!", nests);
+    }
+}`}
+                />
+            </div>
         </PageSection>
     </main>
 </BaseLayout>
@@ -96,7 +139,7 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
         color: var(--kernel-foreground-tertiary);
         font-size: 18px;
         line-height: 2;
-        max-width: 48ch;
+        max-inline-size: 48ch;
         margin-block: 12px 24px;
     }
 
@@ -157,5 +200,51 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
         :global(.kernel-navbar) {
             mix-blend-mode: normal;
         }
+    }
+
+    :global(#flexibility-section) {
+        background-color: var(--kernel-background-tertiary);
+    }
+
+    :global(#flexibility-section .kernel-page-section-inner) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-block: 128px;
+        gap: 48px;
+    }
+
+    .kernel-flexibility-showcase {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+
+    @media only screen and (max-width: 1080px) {
+        .kernel-flexibility-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));;
+            flex: 1;
+            width: 100%;
+        }
+
+        :global(#flexibility-section .kernel-page-section-inner) {
+            padding-block: 64px;
+        }
+    }
+
+    :global(#flexibility-section .kernel-title) {
+        max-inline-size: 440px;
+        font-size: 56px;
+        margin-block: 16px;
+    }
+
+    :global(#flexibility-section .kernel-caption) {
+        max-inline-size: 48ch;
+        font-size: 20px;
+        line-height: 2;
+        color: var(--kernel-foreground-tertiary);
     }
 </style>

@@ -1,0 +1,77 @@
+---
+import { Code } from 'astro/components';
+
+interface Props {
+    code: string;
+    glow?: boolean;
+    hue?: number;
+    title?: string;
+    lang: string;
+    wrap?: boolean;
+    theme?: string;
+}
+
+const {
+    code = "",
+    glow = false,
+    hue = undefined,
+    title = "",
+    lang = "",
+    wrap = false,
+    theme = undefined
+} = Astro.props as Props;
+---
+
+<div
+    style={hue ? `--kernel-code-example-hue: ${hue};` : undefined}
+    class:list={[
+        "kernel-code-example",
+        { glow }
+    ]}
+>
+    {title && (
+        <header class="kernel-code-example-header">
+            {title}
+        </header>
+    )}
+    <Code {lang} {code} {wrap} {theme} />
+</div>
+
+<style>
+    .kernel-code-example {
+        --kernel-code-example-hue: var(--kernel-base-hue);
+        --kernel-code-example-accent: var(--kernel-code-example-hue), 69%, 76%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 4px;
+        border: 1px solid hsl(var(--kernel-code-example-hue), 69%, 76%);
+    }
+
+    .kernel-code-example.glow {
+        box-shadow: 0px 3.5px 13.8px hsla(var(--kernel-code-example-accent), 0.07),
+            0px 8.3px 33.3px hsla(var(--kernel-code-example-accent), 0.101),
+            0px 15.7px 62.6px hsla(var(--kernel-code-example-accent), 0.125),
+            0px 27.9px 111.7px hsla(var(--kernel-code-example-accent), 0.149),
+            0px 52.2px 208.9px hsla(var(--kernel-code-example-accent), 0.18),
+            0px 125px 500px hsla(var(--kernel-code-example-accent), 0.25);
+    }
+
+    .kernel-code-example-header {
+        flex: 0 0 auto;
+        font-size: 14px;
+        padding-inline: 12px;
+        padding-block: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        background: hsl(226deg 7% 18%);
+    }
+
+    .kernel-code-example :global(pre) {
+        flex: 1 1 auto;
+        margin: 0;
+        background-color: hsl(var(--kernel-code-example-hue) 5% 11%) !important;
+        overflow-x: auto;
+        padding: 12px;
+    }
+</style>
