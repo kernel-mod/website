@@ -8,7 +8,6 @@ interface Props {
     title?: string;
     lang: string;
     wrap?: boolean;
-    theme?: string;
 }
 
 const {
@@ -17,8 +16,7 @@ const {
     hue = undefined,
     title = "",
     lang = "",
-    wrap = false,
-    theme = undefined
+    wrap = false
 } = Astro.props as Props;
 ---
 
@@ -34,7 +32,7 @@ const {
             {title}
         </header>
     )}
-    <Code {lang} {code} {wrap} {theme} />
+    <Code {lang} {code} {wrap} />
 </div>
 
 <style>
