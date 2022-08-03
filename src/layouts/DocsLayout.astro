@@ -47,6 +47,7 @@ async function getDocs(lang: string): Promise<Result[]> {
 
 const docs = await getDocs("en");
 ---
+<Code code={`const foo = 'bar';`} lang="js" />
 
 <BaseLayout
     title={`Kernel - Docs - ${content.title}`}
