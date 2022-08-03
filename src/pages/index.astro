@@ -52,29 +52,29 @@ import Text from "~/components/Text";
                     glow
                     hue={322}
                     title="main.js"
-                    lang="js"
-                    code={`const path = require("path");
-
-module.exports = class PackageName {
-    start() {
-        console.log("Package loaded!", path);
-    }
-};`}
-                />
+                >
+                    <pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">path</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">"path"</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #79C0FF">module</span><span style="color: #C9D1D9">.</span><span style="color: #79C0FF">exports</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">class</span><span style="color: #C9D1D9"> </span><span style="color: #FFA657">PackageName</span><span style="color: #C9D1D9"> {"{"}</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #D2A8FF">start</span><span style="color: #C9D1D9">() {"{"}</span></span>
+<span class="line"><span style="color: #C9D1D9">        console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">"Package loaded!"</span><span style="color: #C9D1D9">, path);</span></span>
+<span class="line"><span style="color: #C9D1D9">    }</span></span>
+<span class="line"><span style="color: #C9D1D9">{"}"};</span></span></code></pre>
+                </CodeExample>
                 <CodeExample
                     glow
                     hue={226}
                     title="renderer.js"
-                    lang="js"
-                    code={`// You can only import browser-friendly modules.
-import * as nests from "nests";
-
-export default class PackageName {
-    start() {
-        console.log("Package loaded!", nests);
-    }
-}`}
-                />
+                >
+                    <pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">// You can only import browser-friendly modules.</span></span>
+<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">*</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">as</span><span style="color: #C9D1D9"> nests </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"nests"</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">export</span><span style="color: #FFA657"> </span><span style="color: #FF7B72">default</span><span style="color: #FFA657"> </span><span style="color: #FF7B72">class</span><span style="color: #FFA657"> PackageName {"{"}</span></span>
+<span class="line"><span style="color: #FFA657">    </span><span style="color: #D2A8FF">start</span><span style="color: #FFA657">() </span><span style="color: #C9D1D9">{"{"}</span></span>
+<span class="line"><span style="color: #C9D1D9">        console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">"Package loaded!"</span><span style="color: #C9D1D9">, nests);</span></span>
+<span class="line"><span style="color: #C9D1D9">    {"}"}</span></span>
+<span class="line"><span style="color: #FFA657">{"}"}</span></span></code></pre>
+                </CodeExample>
             </div>
         </PageSection>
     </main>
