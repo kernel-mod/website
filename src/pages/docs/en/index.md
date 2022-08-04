@@ -9,18 +9,18 @@ Kernel is a super small and fast Electron app mod with the most capability.
 
 ## Features
 
--   ✅ Insanely small size--as good as 0.0009% the size of targeted Electron mods.
--   ✅ Supports nearly any Electron app instead of just one.
--   ✅ High package capabilities.
--   ✅ Comes with **zero** bloat.
--   ✅ Very portable.
--   ✅ Open source.
+-   [x] Insanely small size - as good as ~0.0009% the size of targeted Electron mods.
+-   [x] Supports nearly any Electron app instead of just one.
+-   [x] High package capabilities.
+-   [x] Comes with **zero** bloat.
+-   [x] Very portable.
+-   [x] Open source.
 
 ## Focuses
 
-### Versitility
+### Versatility
 
-Kernel should be versitile.
+Kernel should be versatile.
 
 Packages aren't constrained by Kernel, and Kernel isn't constrained by which Electron apps it can run on.
 
@@ -28,7 +28,7 @@ It's Kernel's job to make sure they have as much to work with as possible, and i
 
 Packages even load before some Kernel functions, and have full access to Kernel's internals. This means they are able to change your experience to your liking.
 
-> Be warned, packages have full access to your computer--barring administrator unless you've granted this--and can make changes to your system that might be malicious!
+> Be warned, packages have full access to your computer - barring administrator unless you've granted this - and can make changes to your system that might be malicious!
 > Please be careful when installing packages and be mindful of updates to them.
 
 ### Size
@@ -41,7 +41,7 @@ Size can directly impact loading and downloading speed. Why wait when it can be 
 
 Kernel should be fast.
 
-Nobody should have deal with waiting 10 extra seconds for their app to start or laggy interfaces.
+Nobody should have deal with waiting ~10 extra seconds for their app to start or laggy interfaces.
 
 ## But why?
 
