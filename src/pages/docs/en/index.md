@@ -9,7 +9,7 @@ Kernel is a super small and fast Electron app mod with the most capability.
 
 ## Features
 
--   [x] Insanely small size - as good as ~0.0009% the size of targeted Electron mods.
+-   [x] Insanely small size - good as ~0.0009% the size of targeted Electron mods.
 -   [x] Supports nearly any Electron app instead of just one.
 -   [x] High package capabilities.
 -   [x] Comes with **zero** bloat.
