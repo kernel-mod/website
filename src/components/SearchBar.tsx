@@ -10,6 +10,7 @@ interface Props {
 	placeholder?: string;
 	disabled?: boolean;
 	readonly?: boolean;
+	size?: "small" | "medium" | "large";
 	class?: string;
 	children?: any;
 	onInput?: (value: string) => void;
@@ -21,6 +22,7 @@ const defaultProps = {
 	value: "",
 	readonly: false,
 	disabled: false,
+	size: "small",
 	buttonProps: {}
 };
 
@@ -30,6 +32,7 @@ export default function SearchBar(props: Props) {
 		"placeholder",
 		"disabled",
 		"readonly",
+		"size",
 		"class",
 		"children",
 		"buttonProps",
@@ -49,7 +52,11 @@ export default function SearchBar(props: Props) {
 	};
 
 	return (
-		<div class={`kernel-search-bar ${local.class}`}>
+		<div classList={{
+			"kernel-search-bar": true,
+			[`size-${local.size}`]: !!local.size,
+			[local.class]: !!local.class
+		}}>
 			<input
 				type="search"
 				class="kernel-search-bar-input"

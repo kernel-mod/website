@@ -1,0 +1,84 @@
+.kernel-package {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: var(--kernel-background-secondary);
+}
+
+.kernel-package .kernel-package-name {
+    display: flex;
+    line-height: 1.2;
+    font-size: 24px;
+    margin: 0;
+    color: var(--kernel-accent-primary);
+}
+
+.kernel-package .kernel-package-name a {
+    flex: 1 1 auto;
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.kernel-package .kernel-package-name a:hover {
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-skip-ink: none;
+    text-decoration-color: var(--kernel-accent-faded);
+}
+
+.kernel-package .kernel-package-description {
+    margin-block: 8px;
+    font-size: 14px;
+}
+
+.kernel-package-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.kernel-package-tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 50px;
+    background-color: var(--kernel-interactive-primary);
+    color: var(--kernel-foreground-tertiary);
+}
+
+.kernel-package-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-block-start: 8px;
+}
+
+.kernel-package-author {
+    color: var(--kernel-foreground-tertiary);
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-skip-ink: none;
+    text-decoration-color: var(--kernel-accent-faded);
+}
+
+.kernel-package-author:hover {
+    color: var(--kernel-foreground-secondary);
+}
+
+.kernel-package-author-name {
+    margin-inline-start: 8px;
+}
+
+.kernel-package-author img {
+    box-sizing: border-box;
+    inline-size: 28px;
+    block-size: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--kernel-interactive-primary);
+}

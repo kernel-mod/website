@@ -1,39 +1,39 @@
 import flexsearch from "flexsearch";
 
-export interface Result {
-	title: string;
-	name: string;
-	content: string;
-	path: string;
-	category: string;
+interface DocumentOptions {
+	fields: string[];
 }
 
-let index;
+interface SearchOptions {
+	limit?: number;
+	offset?: number;
+}
 
-export function init(items: Result[]) {
-	index = new flexsearch.Document({
+export function createSearch(items = [], options: DocumentOptions) {
+	const doc = new flexsearch.Document({
 		tokenize: "forward",
-		index: ["title", "name", "content", "path", "category"]
+		index: options.fields
 	});
 
-	for (const item of items) {
-		index.add(item.path, item);
+	for (let i = 0; i < items.length; i++) {
+		doc.add(i, items[i]);
 	}
-}
 
-export function search(query: string): string[] {
-	if (!index) throw new Error("Index not initialized");
+	return {
+		search(query, options: SearchOptions = {}) {
+			const results = doc.search(query, options);
 
-	const results = index.search(query, { limit: 8 });
-	const resultsSet: Set<string> = new Set();
+			const resultsSet: Set<string> = new Set();
 
-	for (const { result } of results) {
-		for (const item of result) {
-			resultsSet.add(item);
+			for (const { result: matches } of results) {
+				for (const match of matches) {
+					resultsSet.add(match);
+				}
+			}
+
+			return Array.from(resultsSet).map(result => items[result]);
 		}
 	}
-
-	return Array.from(resultsSet);
 }
 
 export function excerpt(content: string, query: string) {

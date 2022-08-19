@@ -27,7 +27,7 @@ export default function Button(props: Props) {
 
 	return (
 		<Dynamic
-			class={`kernel-button variant-${local.variant} ${local.class}`}
+			class={`kernel-button variant-${local.variant} ${local.class ?? ""}`}
 			disabled={local.disabled}
 			component={local.href ? "a" : "button"}
 			href={local.href}
