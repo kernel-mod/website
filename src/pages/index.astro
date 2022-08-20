@@ -179,6 +179,19 @@ import Text from "~/components/Text";
         background-color: var(--kernel-background-tertiary);
     }
 
+    :global(#flexibility-section .kernel-title) {
+        max-inline-size: 440px;
+        font-size: 56px;
+        margin-block: 16px;
+    }
+
+    :global(#flexibility-section .kernel-caption) {
+        max-inline-size: 48ch;
+        font-size: 20px;
+        line-height: 2;
+        color: var(--kernel-foreground-tertiary);
+    }
+
     :global(#flexibility-section .kernel-page-section-inner) {
         display: flex;
         align-items: center;
@@ -207,6 +220,10 @@ import Text from "~/components/Text";
     @media only screen and (max-width: 1024px) {
         :global(#flexibility-section .kernel-page-section-inner) {
             padding-block: 64px;
+        }
+
+        :global(#flexibility-section .kernel-title) {
+            font-size: 48px;
         }
 
         :global(.kernel-atom) {
@@ -239,18 +256,5 @@ import Text from "~/components/Text";
         :global(.kernel-atom) {
             animation: none;
         }
-    }
-
-    :global(#flexibility-section .kernel-title) {
-        max-inline-size: 440px;
-        font-size: 56px;
-        margin-block: 16px;
-    }
-
-    :global(#flexibility-section .kernel-caption) {
-        max-inline-size: 48ch;
-        font-size: 20px;
-        line-height: 2;
-        color: var(--kernel-foreground-tertiary);
     }
 </style>
