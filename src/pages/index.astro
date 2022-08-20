@@ -175,33 +175,6 @@ import Text from "~/components/Text";
         --transform: rotate(22.5deg);
     }
 
-    @media (prefers-reduced-motion: reduce) {
-        :global(.kernel-atom) {
-            animation: none;
-        }
-    }
-
-    @media only screen and (max-width: 1024px) {
-        :global(.kernel-atom) {
-            --transform: rotate(22.5deg) scale(0.7);
-        }
-    }
-
-    @media only screen and (max-width: 768px) {
-        main :global(#hero-section) {
-            text-align: left;
-        }
-
-        .kernel-hero-contents {
-            min-block-size: 100vh;
-            align-items: flex-start;
-        }
-
-        :global(.kernel-navbar) {
-            mix-blend-mode: normal;
-        }
-    }
-
     :global(#flexibility-section) {
         background-color: var(--kernel-background-tertiary);
     }
@@ -229,9 +202,42 @@ import Text from "~/components/Text";
             flex: 1;
             width: 100%;
         }
+    }
 
+    @media only screen and (max-width: 1024px) {
         :global(#flexibility-section .kernel-page-section-inner) {
             padding-block: 64px;
+        }
+
+        :global(.kernel-atom) {
+            --transform: rotate(22.5deg) scale(0.7);
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        main :global(#hero-section) {
+            text-align: left;
+        }
+
+        .kernel-hero-contents {
+            min-block-size: 100vh;
+            align-items: flex-start;
+        }
+
+        :global(.kernel-navbar) {
+            mix-blend-mode: normal;
+        }
+    }
+
+    @media only screen and (max-width: 648px) {
+        .kernel-flexibility-showcase {
+            grid-template-columns: auto;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        :global(.kernel-atom) {
+            animation: none;
         }
     }
 
