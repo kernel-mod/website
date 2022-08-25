@@ -1,0 +1,24 @@
+---
+import type { Package } from "~/lib/packages";
+import { createSearch } from "~/lib/search";
+
+let packages: Package[];
+
+try {
+    packages = await Astro.glob("~/packages/*.json");
+} catch(error) {
+    packages = [];
+}
+
+const query = new URL(Astro.request.url).searchParams.get("q") || "";
+
+const { search } = createSearch(packages, {
+    fields: ["id", "name", "description", "author", "tags"]
+});
+
+const results = query ? search(query) : packages;
+---
+
+<ul>
+    {results.map(r => (<li>{r.name}</li>))}
+</ul>
