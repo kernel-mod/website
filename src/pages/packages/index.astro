@@ -116,7 +116,7 @@ function buildQueryUrl(options: { [key: string]: any }) {
                 </Button>
             </div>
             <ul class="kernel-packages-container">
-                {results.filter(pkg => filteredTags.length > 0 ? pkg.tags?.some(tag => filteredTags.includes(tag)) : true).map(pkg => (
+                {results.filter(pkg => filteredTags.length > 0 ? filteredTags.every(f => pkg.tags?.includes(f)) : true).map(pkg => (
                     <PackageCard
                         tagProps={(tag) => ({
                             role: "button",
