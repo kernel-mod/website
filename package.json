@@ -15,8 +15,8 @@
 		"@babel/core": "^7.18.13",
 		"astro": "1.0.0-beta.47",
 		"flamethrower-router": "0.0.0-meme.8",
-		"remark-shiki-twoslash": "^3.0.9",
-		"solid-js": "^1.4.4"
+		"remark-shiki-twoslash": "^3.1.0",
+		"solid-js": "^1.5.1"
 	},
 	"dependencies": {
 		"@astrojs/vercel": "^0.4.0",
