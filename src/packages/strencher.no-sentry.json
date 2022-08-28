@@ -1,0 +1,9 @@
+{
+    "id": "strencher.no-sentry",
+    "name": "No Sentry",
+    "description": "Nuke Discord's sentry and speed up the client.",
+    "tags": ["Discord", "Privacy"],
+    "author": "Strencher",
+    "source": "https://github.com/kernel-addons/no-sentry",
+    "download": "https://github.com/kernel-addons/no-sentry/archive/refs/heads/master.zip"
+}

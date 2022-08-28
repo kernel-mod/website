@@ -1,0 +1,9 @@
+{
+    "id": "strencher.bdcompat",
+    "name": "BDCompat",
+    "description": "Allows you to load BetterDiscord plugins within Kernel.",
+    "tags": ["Discord", "BetterDiscord", "Compatibility"],
+    "author": "Strencher",
+    "source": "https://github.com/kernel-addons/bd-compat",
+    "download": "https://github.com/kernel-addons/bd-compat/archive/refs/heads/master.zip"
+}

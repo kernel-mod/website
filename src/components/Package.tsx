@@ -70,7 +70,9 @@ export default function Package(props: Props) {
                         {local.author}
                     </span>
                 </a>
-                <Button variant="accent" href={local.download} download>Download</Button>
+                <Show when={local.download != null}>
+                    <Button variant="accent" href={local.download} download>Download</Button>
+                </Show>
             </div>
         </li>
     )

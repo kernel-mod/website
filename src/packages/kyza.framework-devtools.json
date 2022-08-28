@@ -1,0 +1,8 @@
+{
+    "id": "kyza.framework-devtools",
+    "name": "Framework DevTools",
+    "description": "Adds extensions such as React DevTools.",
+    "tags": ["Developer", "Utility"],
+    "author": "Kyza",
+    "source": "https://github.com/kernel-mod/packages/blob/master/FrameworkDevtools"
+}

@@ -1,0 +1,9 @@
+{
+    "id": "kernel-addons.pc-compat",
+    "name": "Powercord Compatibility Layer",
+    "description": "Powercord Compatibility Layer for Kernel supporting themes & plugins.",
+    "tags": ["Discord", "Powercord", "Compatibility"],
+    "author": "Strencher & eternal",
+    "source": "https://github.com/kernel-addons/pc-compat",
+    "download": "https://github.com/kernel-addons/pc-compat/releases/latest/download/powercord.asar"
+}
