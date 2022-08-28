@@ -19,5 +19,5 @@
 ## Notes
 - `author` must be your GitHub username.
 - `id` should be unique to your package, and follow the format `author.packagename` by convention.
-- `description` and `tags` are optional.
+- `description`, `tags`, and `source` are optional.
 - It's encouraged to include the app that you're targeting in a tag.

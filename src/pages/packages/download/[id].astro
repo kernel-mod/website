@@ -9,12 +9,12 @@ try {
 } catch(error) {
     packages = [];
 }
-const url = packages.find(pkg => pkg.id == id)?.download;
+const pkg = packages.find(pkg => pkg.id == id);
 
-if (url) {
+if (pkg?.download) {
     return Astro.redirect(url);
 } else {
     Astro.response.status = 404;
-    Astro.response.statusText = "Could not find package" + id;
+    Astro.response.statusText = pkg ? id + "has no download specified" : "Could not find package" + id;
 }
 ---
