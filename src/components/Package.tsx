@@ -70,7 +70,7 @@ export default function Package(props: Props) {
                         {local.author}
                     </span>
                 </a>
-                <Show when={Object.hasOwn(local, "download")}>
+                <Show when={Object.hasOwn(local, "download") && local.download.length > 0}>
                     <Button variant="accent" href={local.download} download>Download</Button>
                 </Show>
             </div>
