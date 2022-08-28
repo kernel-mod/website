@@ -1,11 +1,11 @@
 # Submitting a Package
 
 1. Fork this repository.
-2. Create a new `json` file in this directory with your package's ID as the filename. (e.g. `net.kyza.kernel.json`).
+2. Create a new `json` file in this directory with your package's ID as the filename. (e.g. `kyza.kernel.json`).
 3. Follow the template below to give the necessary information to the site:
 ```json
 {
-    "id": "com.example.package",
+    "id": "person.package",
     "name": "Package Name",
     "description": "Package Description",
     "tags": ["tag", "tag2"],
@@ -18,6 +18,6 @@
 
 ## Notes
 - `author` must be your GitHub username.
-- `id` should be unique to your package.
+- `id` should be unique to your package, and follow the format `author.packagename` by convention.
 - `description` and `tags` are optional.
 - It's encouraged to include the app that you're targeting in a tag.
