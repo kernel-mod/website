@@ -8,7 +8,7 @@ specifiers:
   astro: 1.0.0-beta.47
   flexsearch: ^0.7.21
   prettier: ^2.7.1
-  solid-js: ^1.4.4
+  solid-js: ^1.4.8
 
 dependencies:
   '@astrojs/vercel': 0.4.0
@@ -17,10 +17,10 @@ dependencies:
 
 devDependencies:
   '@astrojs/sitemap': 0.1.2
-  '@astrojs/solid-js': 0.1.4_5te3c4eqqgwcijl7bu6hevumfu
+  '@astrojs/solid-js': 0.1.4_tgnzfiaphiwhltoilmf5oe47yq
   '@babel/core': 7.18.13
   astro: 1.0.0-beta.47
-  solid-js: 1.4.8
+  solid-js: 1.5.1
 
 packages:
 
@@ -116,14 +116,14 @@ packages:
     resolution: {integrity: sha512-KUDpYCISGE6ntbwFin/foYAgzh0V02VEWVUYIF3z73Mr3jkF8iTsLhx/h/aZCLTiFtYIY6koarch1LRt4V2Gvg==}
     dev: true
 
-  /@astrojs/solid-js/0.1.4_5te3c4eqqgwcijl7bu6hevumfu:
+  /@astrojs/solid-js/0.1.4_tgnzfiaphiwhltoilmf5oe47yq:
     resolution: {integrity: sha512-S1zwugChY0aZFJZc4D3HsEFqhDeOAnAt4MT6876JkPVoCRWne6ZrBZ7B8tZhUYeN5NfQ+Q+CwchODKjvysO6Ww==}
     engines: {node: ^14.15.0 || >=16.0.0}
     peerDependencies:
       solid-js: ^1.3.6
     dependencies:
       babel-preset-solid: 1.5.1_@babel+core@7.18.13
-      solid-js: 1.4.8
+      solid-js: 1.5.1
     transitivePeerDependencies:
       - '@babel/core'
     dev: true
@@ -877,7 +877,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001383
+      caniuse-lite: 1.0.30001384
       electron-to-chromium: 1.4.233
       node-releases: 2.0.6
       update-browserslist-db: 1.0.5_browserslist@4.21.3
@@ -902,8 +902,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /caniuse-lite/1.0.30001383:
-    resolution: {integrity: sha512-swMpEoTp5vDoGBZsYZX7L7nXHe6dsHxi9o6/LKf/f0LukVtnrxly5GVb/fWdCDTqi/yw6Km6tiJ0pmBacm0gbg==}
+  /caniuse-lite/1.0.30001384:
+    resolution: {integrity: sha512-BBWt57kqWbc0GYZXb47wTXpmAgqr5LSibPzNjk/AWMdmJMQhLqOl3c/Kd4OAU/tu4NLfYkMx8Tlq3RVBkOBolQ==}
     dev: true
 
   /ccount/2.0.1:
@@ -1047,6 +1047,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+    dev: true
+
+  /csstype/3.1.0:
+    resolution: {integrity: sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==}
     dev: true
 
   /data-uri-to-buffer/4.0.0:
@@ -3646,8 +3650,10 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /solid-js/1.4.8:
-    resolution: {integrity: sha512-XErZdnnYYXF7OwGSUAPcua2y5/ELB/c53zFCpWiEGqxTNoH1iQghzI8EsHJXk06sNn+Z/TGhb8bPDNNGSgimag==}
+  /solid-js/1.5.1:
+    resolution: {integrity: sha512-Y6aKystIxnrB0quV5nhqNuJV+l2Fk3/PQy1mMya/bzxlGiMHAym7v1NaqEgqDIvctbkxOi5dBj0ER/ewrH060g==}
+    dependencies:
+      csstype: 3.1.0
     dev: true
 
   /source-map-js/1.0.2:
