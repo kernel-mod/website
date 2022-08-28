@@ -1,7 +1,14 @@
 ---
-const { id } = Astro.params;
+import type { Package } from "~/lib/packages";
 
-const packages = await Astro.glob("~/packages/*.json");
+const { id } = Astro.params;
+let packages: Package[] = [];
+
+try {
+    packages = await Astro.glob("~/packages/*.json");
+} catch(error) {
+    packages = [];
+}
 const url = packages.find(pkg => pkg.id == id)?.download;
 
 if (url) {
