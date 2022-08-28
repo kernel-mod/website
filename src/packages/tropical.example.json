@@ -1,9 +1,0 @@
-{
-    "id": "tropical.example",
-    "name": "Package",
-    "description": "Example Package",
-    "tags": ["kernel", "uhhhh"],
-    "author": "tropix126",
-    "source": "https://github.com/",
-    "download": "https://github.com/"
-}
