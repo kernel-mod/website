@@ -67,6 +67,7 @@ function buildQueryUrl(options: { [key: string]: any }) {
     <PageSection id="packages-header-section">
         <form action="/packages" method="GET">
             <SearchBar
+                client:load
                 value={query}
                 clearButton={false}
                 placeholder="Search Packages"
