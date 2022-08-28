@@ -10,7 +10,7 @@
     "description": "Package Description",
     "tags": ["tag", "tag2"],
     "author": "person",
-    "source": "https://github.com/person/package/",
+    "source": "https://github.com/person/package",
     "download": "https://github.com/person/package/releases/latest/download/package.asar"
 }
 ```
@@ -21,3 +21,4 @@
 - `id` should be unique to your package, and follow the format `author.packagename` by convention.
 - `description`, `tags`, and `source` are optional.
 - It's encouraged to include the app that you're targeting in a tag.
+- Tags are by convention kebab-case.
