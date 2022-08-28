@@ -8,7 +8,11 @@ export async function get({ params }) {
         packages.push((await module()).default);
     }
 
-    return new Response(JSON.stringify(packages.find(pkg => pkg.id === params.id)), {
+    const match = packages.find(pkg => pkg.id === params.id);
+
+    if (!match) return new Response(`Could not find "${params.id}"`, { status: 404 });
+
+    return new Response(JSON.stringify(match), {
       status: 200
     });
 }
