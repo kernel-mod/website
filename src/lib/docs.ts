@@ -1,3 +1,11 @@
+export interface DocsResult {
+	title: string;
+	name: string;
+	content: string;
+	path: string;
+	category: string;
+}
+
 export function categorizeSidebar(sidebar) {
     return sidebar.en.reduce((col, item, i) => {
         if (i === 0 && !item.header) col.push({ text: "", children: [] });

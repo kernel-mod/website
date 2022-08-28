@@ -1,5 +1,5 @@
 ---
-import type { Result } from "~/lib/search";
+import type { DocsResult } from "~/lib/docs";
 
 import BaseLayout from "./BaseLayout.astro";
 
@@ -26,7 +26,7 @@ const sidebarCategories = categorizeSidebar(DOCS_SIDEBAR);
 const currentCategory = sidebarCategories.find(section => section.children.some(item => item.path === currentPath));
 const currentPage = currentCategory?.children.find(item => item.path === currentPath);
 
-async function getDocs(lang: string): Promise<Result[]> {
+async function getDocs(lang: string): Promise<DocsResult[]> {
     const pages = await Astro.glob(`~/pages/docs/**/*.md`);
     const localizedPages = pages.filter(page => page.url.includes(`/${lang}/`));
 
@@ -47,6 +47,7 @@ async function getDocs(lang: string): Promise<Result[]> {
 
 const docs = await getDocs("en");
 ---
+
 <BaseLayout
     title={`Kernel - Docs - ${content.title}`}
     type="article"

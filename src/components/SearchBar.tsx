@@ -1,4 +1,4 @@
-import { createSignal, splitProps, mergeProps } from "solid-js";
+import { Show, createSignal, splitProps, mergeProps } from "solid-js";
 
 import SearchIcon from "~/icons/Search";
 import CloseIcon from "~/icons/Close";
@@ -10,6 +10,8 @@ interface Props {
 	placeholder?: string;
 	disabled?: boolean;
 	readonly?: boolean;
+	clearButton?: boolean;
+	size?: "small" | "medium" | "large";
 	class?: string;
 	children?: any;
 	onInput?: (value: string) => void;
@@ -21,6 +23,8 @@ const defaultProps = {
 	value: "",
 	readonly: false,
 	disabled: false,
+	clearButton: true,
+	size: "small",
 	buttonProps: {}
 };
 
@@ -30,6 +34,8 @@ export default function SearchBar(props: Props) {
 		"placeholder",
 		"disabled",
 		"readonly",
+		"clearButton",
+		"size",
 		"class",
 		"children",
 		"buttonProps",
@@ -49,7 +55,11 @@ export default function SearchBar(props: Props) {
 	};
 
 	return (
-		<div class={`kernel-search-bar ${local.class}`}>
+		<div classList={{
+			"kernel-search-bar": true,
+			[`size-${local.size}`]: !!local.size,
+			[local.class]: !!local.class
+		}}>
 			<input
 				type="search"
 				class="kernel-search-bar-input"
@@ -61,12 +71,14 @@ export default function SearchBar(props: Props) {
 			<button
 				tabindex="-1"
 				class="kernel-search-bar-button"
-				type={value().length > 0 ? "button" : "submit"}
-				title={value().length > 0 ? "Clear search value" : "Search"}
+				type={(value().length > 0 && local.clearButton) ? "button" : "submit"}
+				title={(value().length > 0 && local.clearButton) ? "Clear search value" : "Search"}
 				onClick={handleButtonClick}
 				{...local.buttonProps}
 			>
-				<CloseIcon class="kernel-search-bar-clear-icon" />
+				<Show when={local.clearButton}>
+					<CloseIcon class="kernel-search-bar-clear-icon" />
+				</Show>
 				<SearchIcon class="kernel-search-bar-search-icon" />
 			</button>
 			{local.children}

@@ -1,0 +1,17 @@
+.kernel-packages-container {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-gap: 16px;
+}
+
+.kernel-packages-header {
+    margin-block-start: 8px;
+}
+
+.kernel-packages-header hr {
+    margin-block: 16px;
+    border: none;
+    border-block-start: 1px solid var(--kernel-interactive-primary);
+}

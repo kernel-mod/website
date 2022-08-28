@@ -1,4 +1,4 @@
-import type { Result } from "~/lib/search";
+import type { DocsResult } from "~/lib/docs";
 
 import {
 	Show,
@@ -13,8 +13,7 @@ import {
 import { groupBy } from "~/lib/utils";
 import { cleanMarkdown } from "~/lib/docs";
 import {
-	init,
-	search,
+	createSearch,
 	excerpt
 } from "~/lib/search";
 
@@ -27,23 +26,27 @@ import "~/styles/SearchWrapper.css";
 const uid = () => Math.random().toString(36).slice(2);
 
 interface Props {
-	items: Result[];
-	result?: string;
+	items: DocsResult[];
+	value?: string;
 	children?: never;
 	[key: string]: any;
 }
 
 const defaultProps = {
-	result: "",
+	value: "",
 	items: []
 };
 
 export default function SearchWrapper(props: Props) {
-	const [local, rest] = splitProps(mergeProps(defaultProps, props), ["children", "items", "site", "result"]);
-	const [value, setValue] = createSignal(local.result);
+	const [local, rest] = splitProps(mergeProps(defaultProps, props), ["children", "items", "site", "value"]);
+	const [value, setValue] = createSignal(local.value);
 	const [open, setOpen] = createSignal(false);
 	const [results, setResults] = createSignal([]);
 	const [activeResult, setActiveResult] = createSignal(0);
+
+	const { search } = createSearch(local.items, {
+        fields: ["title", "name", "content", "path", "category"]
+    });
 
 	const instanceId = uid();
 	const popoutId = `kernel-search-results-${instanceId}-popout`;
@@ -107,9 +110,8 @@ export default function SearchWrapper(props: Props) {
 		}
 	};
 
-	createEffect(() => init(props.items));
 	createEffect(() => {
-		setResults(value() ? search(value()).map(r => local.items.find(i => i.path === r)) : local.items);
+		setResults(value() ? search(value()) : local.items);
 		setActiveResult(0);
 	});
 
@@ -188,7 +190,7 @@ export default function SearchWrapper(props: Props) {
 												>
 													{category}
 												</Text>
-												<For each={pages as Result[]}>
+												<For each={pages as DocsResult[]}>
 													{page => {
 														const pageId = `kernel-search-result-${instanceId}-${results().indexOf(
 															page

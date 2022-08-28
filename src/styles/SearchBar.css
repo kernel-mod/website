@@ -3,9 +3,27 @@
 	display: flex;
 	align-items: center;
 	inline-size: 100%;
-	block-size: 28px;
 	background-color: var(--kernel-background-primary);
 	border-radius: 4px;
+	block-size: var(--kernel-search-bar-size);
+}
+
+.kernel-search-bar.size-small {
+	--kernel-search-bar-size: 28px;
+	--kernel-search-bar-font-size: 12px;
+	--kernel-search-bar-button-size: 36px;
+}
+
+.kernel-search-bar.size-medium {
+	--kernel-search-bar-size: 36px;
+	--kernel-search-bar-font-size: 14px;
+	--kernel-search-bar-button-size: 40px;
+}
+
+.kernel-search-bar.size-large {
+	--kernel-search-bar-size: 40px;
+	--kernel-search-bar-font-size: 16px;
+	--kernel-search-bar-button-size: 48px;
 }
 
 .kernel-search-bar-input {
@@ -14,7 +32,7 @@
 	min-inline-size: 0;
 	block-size: 100%;
 	font-family: inherit;
-	font-size: 12px;
+	font-size: var(--kernel-search-bar-font-size);
 	font-weight: 500;
 	background-color: transparent;
 	color: var(--kernel-foreground-secondary);
@@ -47,7 +65,7 @@
 	justify-content: center;
 	flex: 0 0 auto;
 	padding-inline: 0 4px;
-	inline-size: 36px;
+	inline-size: var(--kernel-search-bar-button-size);
 	block-size: 100%;
 	border: none;
 	background-color: var(--kernel-search-bar-button-color);
@@ -65,7 +83,7 @@
 	left: -4px;
 	width: 0;
 	height: 0;
-	border-block-start: 28px solid transparent;
+	border-block-start: var(--kernel-search-bar-size) solid transparent;
 	border-inline-end: 4px solid var(--kernel-search-bar-button-color);
 	transition: inherit;
 }
@@ -83,8 +101,8 @@
 .kernel-search-bar-button svg {
 	position: absolute;
 	opacity: 0;
-	inline-size: 12px;
-	block-size: 12px;
+	inline-size: var(--kernel-search-bar-font-size);
+	block-size: var(--kernel-search-bar-font-size);
 	fill: currentColor;
 	transition: transform 250ms ease;
 	transform: rotate(90deg);

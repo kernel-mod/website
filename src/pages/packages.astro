@@ -1,3 +1,254 @@
 ---
-return Astro.redirect("https://www.youtube.com/watch?v=jtyFdK2Y33s");
+import type { Package } from "~/lib/packages";
+
+import Text from "~/components/Text";
+import Button from "~/components/Button";
+import PageSection from "~/components/PageSection";
+import SearchBar from "~/components/SearchBar";
+import PackageCard from "~/components/Package";
+import Tag from "~/components/Tag";
+import Pagination from "~/components/Pagination.astro";
+
+import BaseLayout from "~/layouts/BaseLayout.astro";
+
+import SortAscending from "~/icons/SortAscending";
+import SortDescending from "~/icons/SortDescending";
+import TriangleDown from "~/icons/TriangleDown";
+
+import { createSearch } from "~/lib/search";
+
+let packages: Package[];
+const tags: string[] = [];
+
+try {
+    packages = await Astro.glob("~/packages/*.json");
+} catch(error) {
+    packages = [];
+}
+
+for (const pkg of packages) {
+    for (const tag of pkg.tags || []) {
+        tags.push(tag);
+    }
+}
+
+const params = new URL(Astro.request.url).searchParams;
+
+const query = params.get("q") || "";
+const order = params.get("order") || "descending";
+const filteredTags = (params.get("tags") || null)?.split(",") || [];
+const tagOccurances = tags.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), [])
+const page = parseInt(params.get("page")) || 1;
+
+const { search } = createSearch(packages, {
+    fields: ["id", "name", "description", "author", "tags"]
+});
+
+const allResults = query ? search(query) : packages;
+
+if (order === "descending") allResults.reverse();
+
+const paginationAmount = 15;
+const results = allResults.slice((page - 1) * paginationAmount, ((page - 1) * paginationAmount) + paginationAmount);
+const pages = Math.ceil(allResults.length / paginationAmount);
+
+function buildQueryUrl(options: { [key: string]: any }) {
+    const params = new URL(Astro.request.url).searchParams;
+
+    for (const [key, value] of Object.entries(options)) {
+        params.set(key, value);
+    }
+
+    return "?" + params.toString();
+}
 ---
+
+<BaseLayout title="Packages - Kernel">
+    <PageSection id="packages-header-section">
+        <form action="/packages" method="GET">
+            <SearchBar
+                value={query}
+                clearButton={false}
+                placeholder="Search Packages"
+                autocomplete="on"
+                size="large"
+                name="q"
+            />
+            {Array.from(params.keys()).filter(query => query !== "q").map(query => (
+                <input type="hidden" name={query} value={params.get(query)} />
+            ))}
+        </form>
+    </PageSection>
+
+    <PageSection id="packages-results-section">
+        <aside class="kernel-packages-sidebar">
+            <details class="kernel-packages-sidebar-section" open>
+                <summary>
+                    <Text variant="title">
+                        Tags
+                    </Text>
+                    <TriangleDown />
+                </summary>
+                <div class="kernel-packages-tags-filter">
+                    {tags.map(tag => (
+                        <Tag
+                            role="button"
+                            href={buildQueryUrl({ tags: filteredTags.includes(tag) ? filteredTags.filter(t => t !== tag) : filteredTags.concat(tag) })}
+                            selected={filteredTags.includes(tag)}
+                            aria-pressed={filteredTags.includes(tag)}
+                        >
+                            {tag} ({tagOccurances[tag]})
+                        </Tag>
+                    ))}
+                </div>
+            </details>
+        </aside>
+        <div class="kernel-packages-results">
+            <div class="kernel-packages-results-header">
+                <h1 class="kernel-packages-results-text">
+                    Found <span class="kernel-packages-results-count">{allResults.length}</span> {allResults.length === 1 ? "package" : "packages"}.
+                </h1>
+
+                <Button href={buildQueryUrl({ order: order === "ascending" ? "descending" : "ascending" })}>
+                    {order === "ascending" ? <SortAscending /> : <SortDescending />}
+                    {order}
+                </Button>
+            </div>
+            <ul class="kernel-packages-container">
+                {results.filter(pkg => filteredTags.length > 0 ? pkg.tags?.some(tag => filteredTags.includes(tag)) : true).map(pkg => (
+                    <PackageCard
+                        tagProps={(tag) => ({
+                            role: "button",
+                            href: buildQueryUrl({ tags: filteredTags.includes(tag) ? filteredTags.filter(t => t !== tag) : filteredTags.concat(tag) }),
+                            selected: filteredTags.includes(tag),
+                            "aria-pressed": filteredTags.includes(tag)
+                        })}
+                        {...pkg}
+                    />
+                ))}
+            </ul>
+            <Pagination {pages} {page} />
+        </div>
+    </PageSection>
+</BaseLayout>
+
+<style>
+    :global(.kernel-navbar) {
+        background-color: var(--kernel-background-primary);
+    }
+
+    :global(#packages-header-section) {
+        background-color: var(--kernel-background-secondary);
+    }
+
+    :global(#packages-header-section .kernel-page-section-inner) {
+        padding-block: 16px;
+    }
+    
+    :global(#packages-results-section .kernel-page-section-inner) {
+        gap: 24px;
+        display: flex;
+    }
+
+    :global(#packages-results-section .kernel-page-section-inner) {
+        padding-block: 24px;
+    }
+
+    .kernel-packages-sidebar {
+        flex: 0 0 auto;
+        inline-size: 260px;
+    }
+
+    .kernel-packages-sidebar-section {
+        margin-block-end: 24px;
+    }
+
+    .kernel-packages-sidebar-section summary {
+        user-select: none;
+        display: flex;
+        justify-content: space-between;
+        text-transform: uppercase;
+        padding-block-end: 8px;
+        margin-block-end: 8px;
+        border-block-end: 1px solid var(--kernel-interactive-primary);
+    }
+
+    .kernel-packages-sidebar-section summary:hover {
+        border-color: var(--kernel-interactive-secondary);
+    }
+
+    .kernel-packages-sidebar-section summary :global(svg) {
+        fill: var(--kernel-foreground-tertiary);
+    }
+
+    .kernel-packages-sidebar-section[open] summary :global(svg) {
+        transform: rotate(180deg);
+    }
+
+    .kernel-packages-sidebar-section :global(.kernel-title) {
+        font-size: 12px;
+    }
+
+    .kernel-packages-tags-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .kernel-packages-results {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .kernel-packages-results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-block-end: 16px;
+    }
+
+    .kernel-packages-results-text {
+        margin: 0;
+        font-size: 16px;
+    }
+    
+    .kernel-packages-results-header :global(.kernel-button) {
+        padding-inline: 12px;
+        padding-block: 6px;
+    }
+
+    .kernel-packages-results-header :global(.kernel-button svg) {
+        fill: currentColor;
+    }
+
+    .kernel-packages-results-count {
+        color: var(--kernel-accent-primary);
+    }
+
+    .kernel-packages-container,
+    .kernel-packages-sidebar ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    .kernel-packages-container {
+        display: grid;
+        grid-gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .kernel-packages-results :global(.kernel-pagination) {
+        margin-inline: auto;
+    }
+
+    @media only screen and (max-width: 768px) {
+        :global(#packages-results-section .kernel-page-section-inner) {
+            flex-direction: column;
+        }
+
+        .kernel-packages-sidebar {
+            inline-size: 100%;
+        }
+    }
+</style>

@@ -1,20 +1,19 @@
 ---
-import type { Result } from "~/lib/search";
+import type { DocsResult } from "~/lib/docs";
 
 import { DOCS_SIDEBAR, KNOWN_LANGUAGES } from "~/config";
 import { categorizeSidebar } from "~/lib/docs";
 import { groupBy } from "~/lib/utils";
 import { cleanMarkdown } from "~/lib/docs";
 import {
-    init,
-    search,
+    createSearch,
     excerpt
 } from "~/lib/search";
 
 const query = new URL(Astro.request.url).searchParams.get("q") || "";
 const lang = new URL(Astro.request.url).searchParams.get("lang") || "en";
 
-async function getDocs(lang: string): Promise<Result[]> {
+async function getDocs(lang: string): Promise<DocsResult[]> {
     const pages = await Astro.glob(`~/pages/docs/**/*.md`);
     const localizedPages = pages.filter(page => page.url.includes(`/${lang}/`));
 
@@ -37,9 +36,12 @@ async function getDocs(lang: string): Promise<Result[]> {
 }
 
 const docs = await getDocs(lang);
-init(docs);
 
-const results = query ? search(query).map(r => docs.find(i => i.path === r)) : docs;
+const { search } = createSearch(docs, {
+    fields: ["title", "name", "content", "path", "category"]
+});
+
+const results = query ? search(query) : docs;
 ---
 
 <section align="center">
@@ -71,7 +73,7 @@ const results = query ? search(query).map(r => docs.find(i => i.path === r)) : d
             <li role="presentation">
                 <strong>{category}</strong>
             </li>
-            {(pages as Result[]).map(page => (
+            {(pages as DocsResult[]).map(page => (
                 <li>
                     <a href={`/docs/${lang}${page.path}`}>
                         <h2 set:html={excerpt(page.title, query)} />

@@ -20,6 +20,10 @@
 	transition: 150ms ease;
 }
 
+.kernel-button[type="submit"] {
+	cursor: pointer;
+}
+
 .kernel-button:focus {
 	box-shadow: 0 0 0 3px var(--kernel-accent-faded);
 }
@@ -45,4 +49,9 @@
 
 .kernel-button.variant-accent {
 	background-color: var(--kernel-accent-primary);
+}
+
+.kernel-button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
 }
