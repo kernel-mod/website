@@ -37,7 +37,11 @@ const params = new URL(Astro.request.url).searchParams;
 const query = params.get("q") || "";
 const order = params.get("order") || "descending";
 const filteredTags = (params.get("tags") || null)?.split(",") || [];
+
 const tagOccurances = tags.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), [])
+// Dedupe tags after counting occurances.
+tags = [...new Set(tags)];
+
 const page = parseInt(params.get("page")) || 1;
 
 const { search } = createSearch(packages, {
