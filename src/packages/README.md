@@ -16,7 +16,7 @@
 }
 ```
 
-##Notes:##
+## Notes:
 - `author` must be your GitHub username.
 - `id` should be unique to your package.
 - `description` and `tags` are optional.
