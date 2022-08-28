@@ -1,0 +1,183 @@
+---
+import Button from "./Button";
+
+import ChevronLeft from "~/icons/ChevronLeft";
+import ChevronRight from "~/icons/ChevronRight";
+
+interface Props {
+    pages: number;
+    page: number;
+    boundaryCount?: number;
+    siblingCount?: number;
+}
+
+const {
+    pages,
+    page,
+    boundaryCount = 1,
+    siblingCount = 1
+} = Astro.props as Props;
+
+const url = new URL(Astro.request.url);
+
+function pagination() {
+    const range = (start, end) => Array.from({ length: (end - start) + 1 }, (_, i) => i + start);
+    
+    const startPages = range(1, Math.min(boundaryCount, pages));
+    const endPages = range(Math.max(pages - boundaryCount + 1, boundaryCount + 1), pages);
+
+    const siblingsStart = Math.max(
+        Math.min(
+            page - siblingCount,
+            pages - boundaryCount - siblingCount * 2 - 1,
+        ),  
+        boundaryCount + 2,
+    );
+
+    const siblingsEnd = Math.min(
+        Math.max(
+            page + siblingCount,
+            boundaryCount + siblingCount * 2 + 2,
+        ),
+        endPages.length > 0 ? endPages[0] - 2 : pages - 1,
+    );
+
+    return [
+        ...startPages,
+        ...(siblingsStart > boundaryCount + 2
+            ? ["ellipsis"]
+            : boundaryCount + 1 < pages - boundaryCount
+                ? [boundaryCount + 1]
+                : []),
+        ...range(siblingsStart, siblingsEnd),
+        ...(siblingsEnd < pages - boundaryCount - 1
+            ? ["ellipsis"]
+            : pages - boundaryCount > boundaryCount
+                ? [pages - boundaryCount]
+                : []),
+        ...endPages
+    ];
+}
+
+function buildQueryUrl(options: { [key: string]: any }) {
+    const params = new URL(Astro.request.url).searchParams;
+
+    for (const [key, value] of Object.entries(options)) {
+        params.set(key, value);
+    }
+
+    return "?" + params.toString();
+}
+---
+
+<nav class="kernel-pagination">
+    <Button
+        class="kernel-pagination-button"
+        href={buildQueryUrl({ page: page - 1 })}
+        disabled={page <= 1}
+    >
+        <ChevronLeft />
+        Back
+    </Button>
+    <ul class="kernel-pagination-pages">
+        {pagination().map(item => (
+            typeof item === "number" ? (
+                <li>
+                    <Button
+                        class="kernel-pagination-button"
+                        href={buildQueryUrl({ page: item })}
+                        variant={page === item ? "accent" : "default"}
+                        aria-label={`Page ${item}`}
+                        aria-current={page === item ? "page" : undefined}
+                    >
+                        {item}
+                    </Button>
+                </li>
+            ) : (
+                <li>
+                    <form method="GET" action={url.pathname}>
+                        <input
+                            type="number"
+                            min={1}
+                            max={pages}
+                            name="page"
+                            placeholder="…"
+                            autocomplete="off"
+                            class="kernel-pagination-ellipsis"
+                        />
+                        {Array.from(url.searchParams.keys()).filter(query => query !== "page").map(query => (
+                            <input type="hidden" name={query} value={url.searchParams.get(query)} />
+                        ))}
+                    </form>
+                </li>
+            )
+        ))}
+    </ul>
+    <Button
+        class="kernel-pagination-button"
+        href={buildQueryUrl({ page: page + 1 })}
+        disabled={page === pages}
+    >
+        Next
+        <ChevronRight />
+    </Button>
+</nav>
+
+<style>
+    .kernel-pagination,
+    .kernel-pagination-pages {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .kernel-pagination-pages {
+        flex-wrap: wrap;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .kernel-pagination :global(.kernel-pagination-button) {
+        gap: 2px;
+        border-radius: 50px;
+        padding-inline: 12.5px;
+        padding-block: 8px;
+    }
+
+    .kernel-pagination :global(.kernel-pagination-button svg) {
+        fill: currentColor;
+        inline-size: 14px;
+        block-size: auto;
+    }
+
+    .kernel-pagination-ellipsis {
+        -moz-appearance: textfield;
+        color: var(--kernel-foreground-primary);
+        font-family: inherit;
+        text-align: center;
+        background-color: transparent;
+        border: none;
+        inline-size: 13px;
+        padding-inline: 8px;
+        padding-block: 8px;
+    }
+
+    .kernel-pagination-ellipsis::placeholder {
+        font-size: 18px;
+        color: var(--kernel-foreground-tertiary);
+    }
+
+    .kernel-pagination-ellipsis:focus {
+        border-radius: 4px;
+        outline: none;
+        background-color: var(--kernel-background-primary);
+        box-shadow: 0 0 0 2px var(--kernel-accent-primary);
+    }
+
+    .kernel-pagination-ellipsis::-webkit-outer-spin-button,
+    .kernel-pagination-ellipsis::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+</style>

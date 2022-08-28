@@ -1,4 +1,4 @@
-import { createSignal, splitProps, mergeProps } from "solid-js";
+import { Show, createSignal, splitProps, mergeProps } from "solid-js";
 
 import SearchIcon from "~/icons/Search";
 import CloseIcon from "~/icons/Close";
@@ -10,6 +10,7 @@ interface Props {
 	placeholder?: string;
 	disabled?: boolean;
 	readonly?: boolean;
+	clearButton?: boolean;
 	size?: "small" | "medium" | "large";
 	class?: string;
 	children?: any;
@@ -22,6 +23,7 @@ const defaultProps = {
 	value: "",
 	readonly: false,
 	disabled: false,
+	clearButton: true,
 	size: "small",
 	buttonProps: {}
 };
@@ -32,6 +34,7 @@ export default function SearchBar(props: Props) {
 		"placeholder",
 		"disabled",
 		"readonly",
+		"clearButton",
 		"size",
 		"class",
 		"children",
@@ -68,12 +71,14 @@ export default function SearchBar(props: Props) {
 			<button
 				tabindex="-1"
 				class="kernel-search-bar-button"
-				type={value().length > 0 ? "button" : "submit"}
-				title={value().length > 0 ? "Clear search value" : "Search"}
+				type={(value().length > 0 && local.clearButton) ? "button" : "submit"}
+				title={(value().length > 0 && local.clearButton) ? "Clear search value" : "Search"}
 				onClick={handleButtonClick}
 				{...local.buttonProps}
 			>
-				<CloseIcon class="kernel-search-bar-clear-icon" />
+				<Show when={local.clearButton}>
+					<CloseIcon class="kernel-search-bar-clear-icon" />
+				</Show>
 				<SearchIcon class="kernel-search-bar-search-icon" />
 			</button>
 			{local.children}

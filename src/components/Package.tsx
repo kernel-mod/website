@@ -1,4 +1,5 @@
 import type { Package } from "~/lib/packages";
+import type { Props as TagProps } from "./Tag";
 
 import {
     For,
@@ -9,8 +10,13 @@ import {
 
 import Button from "./Button";
 import Text from "./Text";
+import Tag from "./Tag";
 
 import "~/styles/Package.css";
+
+interface Props extends Package {
+    tagProps: (tag: string) => TagProps;
+}
 
 const defaultProps = {
     id: "",
@@ -18,17 +24,19 @@ const defaultProps = {
     description: "",
     author: "",
     tags: [],
+    tagProps: () => {},
     source: "",
     download: ""
 }
 
-export default function Package(props: Package) {
+export default function Package(props: Props) {
 	const [local, rest] = splitProps(mergeProps(defaultProps, props), [
         "id",
         "name",
         "description",
         "author",
         "tags",
+        "tagProps",
         "source",
         "download"
 	]);
@@ -47,7 +55,7 @@ export default function Package(props: Package) {
             </Show>
             <div class="kernel-package-tags">
                 <For each={local.tags}>
-                    {tag => (<span class="kernel-package-tag">{tag}</span>)}
+                    {tag => (<Tag {...local.tagProps(tag)}>{tag}</Tag>)}
                 </For>
             </div>
             <div class="kernel-package-footer">
@@ -57,7 +65,7 @@ export default function Package(props: Package) {
                     target="_blank"
                     class="kernel-package-author"
                 >
-                    <img src={`https://github.com/${local.author}.png`} />
+                    <img alt={local.author} src={`https://github.com/${local.author}.png`} />
                     <span class="kernel-package-author-name">
                         {local.author}
                     </span>

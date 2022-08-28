@@ -1,6 +1,7 @@
 .kernel-package {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     border-radius: 8px;
     padding: 16px;
     background-color: var(--kernel-background-secondary);
@@ -50,6 +51,7 @@
 
 .kernel-package-footer {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-end;
     margin-block-start: 8px;
@@ -81,4 +83,16 @@
     block-size: 28px;
     border-radius: 50%;
     border: 1px solid var(--kernel-interactive-primary);
+}
+
+@media only screen and (max-width: 768px) {
+    .kernel-package-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .kernel-package-footer .kernel-button {
+        inline-size: 100%;
+        margin-block-start: 16px;
+    }
 }

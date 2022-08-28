@@ -1,0 +1,24 @@
+.kernel-tag {
+    user-select: none;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 50px;
+    background-color: var(--kernel-interactive-primary);
+    color: var(--kernel-foreground-tertiary);
+    transition: 150ms ease background-color;
+}
+
+a.kernel-tag:hover {
+    background-color: var(--kernel-interactive-secondary);
+}
+
+a.kernel-tag:active {
+    background-color: var(--kernel-interactive-tertiary);
+}
+
+:root .kernel-tag.selected {
+    background-color: var(--kernel-accent-primary);
+    color: var(--kernel-background-tertiary);
+}
