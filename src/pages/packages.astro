@@ -50,8 +50,7 @@ if (order === "descending") allResults.reverse();
 
 const paginationAmount = 15;
 const results = allResults.slice((page - 1) * paginationAmount, ((page - 1) * paginationAmount) + paginationAmount);
-// const pages = Math.ceil(allResults.length / paginationAmount);
-const pages = 20;
+const pages = Math.ceil(allResults.length / paginationAmount);
 
 function buildQueryUrl(options: { [key: string]: any }) {
     const params = new URL(Astro.request.url).searchParams;
