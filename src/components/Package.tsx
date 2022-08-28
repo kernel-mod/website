@@ -65,12 +65,12 @@ export default function Package(props: Props) {
                     target="_blank"
                     class="kernel-package-author"
                 >
-                    <img alt={local.author} src={`https://github.com/${local.author}.png`} />
+                    <img alt="" src={`https://github.com/${local.author}.png`} />
                     <span class="kernel-package-author-name">
                         {local.author}
                     </span>
                 </a>
-                <Show when={local.download != null}>
+                <Show when={Object.hasOwn(local, "download")}>
                     <Button variant="accent" href={local.download} download>Download</Button>
                 </Show>
             </div>
