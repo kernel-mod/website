@@ -1,4 +1,4 @@
-# Submitting a package.
+# Submitting a Package.
 
 1. Fork this repository.
 2. Create a new `json` file in this directory with your package's ID as the filename. (e.g. `net.kyza.kernel.json`).
@@ -16,8 +16,8 @@
 }
 ```
 
-## Notes:
+## Notes
 - `author` must be your GitHub username.
 - `id` should be unique to your package.
 - `description` and `tags` are optional.
-- It's generally encouraged to include the application that you're targeting in a tag.
+- It's encouraged to include the app that you're targeting in a tag.
