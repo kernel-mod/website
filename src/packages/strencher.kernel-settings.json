@@ -2,7 +2,7 @@
     "id": "strencher.kernel-settings",
     "name": "Settings",
     "description": "Gives you a settings UI for Kernel.",
-    "tags": ["Configuration"],
+    "tags": ["configuration"],
     "author": "Strencher",
     "source": "https://github.com/kernel-addons/settings",
     "download": "https://github.com/kernel-addons/settings/archive/refs/heads/master.zip"

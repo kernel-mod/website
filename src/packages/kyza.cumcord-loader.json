@@ -2,7 +2,7 @@
     "id": "kyza.cumcord-loader",
     "name": "Cumcord Loader",
     "description": "Loads Cumcord.",
-    "tags": ["Discord", "Cumcord"],
+    "tags": ["discord", "cumcord"],
     "author": "Kyza",
     "source": "https://github.com/kernel-mod/packages/tree/master/CumcordLoader"
 }
