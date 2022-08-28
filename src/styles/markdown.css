@@ -37,6 +37,7 @@
 }
 
 .kernel-markdown-body code {
+	word-break: break-word;
 	font-size: 14px;
 	font-family: "Cascadia Code", "Consolas", "Menlo", "Monaco", "Lucida Console", "Liberation Mono", "DejaVu Sans Mono",
 		"Bitstream Vera Sans Mono", "Courier New", monospace, serif;
