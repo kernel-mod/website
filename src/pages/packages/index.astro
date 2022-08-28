@@ -37,11 +37,7 @@ const params = new URL(Astro.request.url).searchParams;
 const query = params.get("q") || "";
 const order = params.get("order") || "descending";
 const filteredTags = (params.get("tags") || null)?.split(",") || [];
-
 const tagOccurances = tags.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), [])
-// Dedupe tags after counting occurances.
-tags = [...new Set(tags)];
-
 const page = parseInt(params.get("page")) || 1;
 
 const { search } = createSearch(packages, {
@@ -95,7 +91,7 @@ function buildQueryUrl(options: { [key: string]: any }) {
                     <TriangleDown />
                 </summary>
                 <div class="kernel-packages-tags-filter">
-                    {tags.map(tag => (
+                    {[...new Set(tags)].map(tag => (
                         <Tag
                             role="button"
                             href={buildQueryUrl({ tags: filteredTags.includes(tag) ? filteredTags.filter(t => t !== tag) : filteredTags.concat(tag) })}
