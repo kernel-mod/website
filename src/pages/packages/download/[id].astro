@@ -1,0 +1,13 @@
+---
+const { id } = Astro.params;
+
+const packages = await Astro.glob("~/packages/*.json");
+const url = packages.find(pkg => pkg.id == id)?.download;
+
+if (url) {
+    return Astro.redirect(url);
+} else {
+    Astro.response.status = 404;
+    Astro.response.statusText = "Could not find package" + id;
+}
+---

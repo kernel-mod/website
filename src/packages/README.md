@@ -1,4 +1,4 @@
-# Submitting a package.
+# Submitting a Package
 
 1. Fork this repository.
 2. Create a new `json` file in this directory with your package's ID as the filename. (e.g. `net.kyza.kernel.json`).
