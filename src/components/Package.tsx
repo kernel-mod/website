@@ -70,7 +70,9 @@ export default function Package(props: Props) {
                         {local.author}
                     </span>
                 </a>
-                <Show when={Object.hasOwn(local, "download") && local.download.length > 0}>
+                <Show when={Object.hasOwn(local, "download") && local.download.length > 0} fallback={(
+                    <Button href={local.source} target="_blank" rel="noreferrer noopener">Source</Button>
+                )}>
                     <Button variant="accent" href={local.download} download>Download</Button>
                 </Show>
             </div>
