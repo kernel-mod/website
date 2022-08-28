@@ -118,17 +118,17 @@ function buildQueryUrl(options: { [key: string]: any }) {
             <ul class="kernel-packages-container">
                 {results.filter(pkg => filteredTags.length > 0 ? filteredTags.every(f => pkg.tags?.includes(f)) : true).map(pkg => (
                     <PackageCard
+                        {...pkg}
                         tagProps={(tag) => ({
                             role: "button",
                             href: buildQueryUrl({ tags: filteredTags.includes(tag) ? filteredTags.filter(t => t !== tag) : filteredTags.concat(tag) }),
                             selected: filteredTags.includes(tag),
                             "aria-pressed": filteredTags.includes(tag)
                         })}
-                        {...pkg}
                     />
                 ))}
             </ul>
-            <Pagination {pages} {page} />
+            <Pagination pages={pages} page={page} />
         </div>
     </PageSection>
 </BaseLayout>

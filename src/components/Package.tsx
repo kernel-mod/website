@@ -42,7 +42,7 @@ export default function Package(props: Props) {
 	]);
 
     return (
-        <li class="kernel-package" {...rest}>
+        <li class="kernel-package">
             <Text variant="title" class="kernel-package-name">
                 <a title={local.id} href={local.source} target="_blank" rel="noreferrer noopener">
                     {local.name}
