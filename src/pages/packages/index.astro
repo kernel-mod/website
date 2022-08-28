@@ -49,7 +49,7 @@ const allResults = query ? search(query) : packages;
 if (order === "descending") allResults.reverse();
 
 const paginationAmount = 15;
-const results = allResults.slice((page - 1) * paginationAmount, ((page - 1) * paginationAmount) + paginationAmount);
+const results = allResults.slice((page - 1) * paginationAmount, ((page - 1) * paginationAmount) + paginationAmount).filter(pkg => filteredTags.length > 0 ? filteredTags.every(f => pkg.tags?.includes(f)) : true);
 const pages = Math.ceil(allResults.length / paginationAmount);
 
 function buildQueryUrl(options: { [key: string]: any }) {
@@ -107,7 +107,7 @@ function buildQueryUrl(options: { [key: string]: any }) {
         <div class="kernel-packages-results">
             <div class="kernel-packages-results-header">
                 <h1 class="kernel-packages-results-text">
-                    Found <span class="kernel-packages-results-count">{allResults.length}</span> {allResults.length === 1 ? "package" : "packages"}.
+                    Found <span class="kernel-packages-results-count">{results.length}</span> {results.length === 1 ? "package" : "packages"}.
                 </h1>
 
                 <Button href={buildQueryUrl({ order: order === "ascending" ? "descending" : "ascending" })}>
@@ -116,7 +116,7 @@ function buildQueryUrl(options: { [key: string]: any }) {
                 </Button>
             </div>
             <ul class="kernel-packages-container">
-                {results.filter(pkg => filteredTags.length > 0 ? filteredTags.every(f => pkg.tags?.includes(f)) : true).map(pkg => (
+                {results.map(pkg => (
                     <PackageCard
                         {...pkg}
                         tagProps={(tag) => ({
