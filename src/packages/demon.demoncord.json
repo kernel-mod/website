@@ -1,0 +1,9 @@
+{
+	"name": "Demoncord Loader",
+	"id": "demon.demoncord",
+	"description": "A Discord client mod by satanists, for satanists",
+	"tags": ["discord", "demoncord", "satanism"],
+	"author": "Ruthenic",
+	"source": "https://git.ruthenic.com/ruthenic/demoncord-kernel",
+	"download": "https://git.ruthenic.com/ruthenic/demoncord-kernel/raw/branch/master/dist/Demoncord.asar"
+}
