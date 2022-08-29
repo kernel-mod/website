@@ -1,0 +1,8 @@
+{
+    "id": "xb.openinapps",
+    "name": "Open in Apps",
+    "description": "Open links in their own apps.",
+    "tags": ["spotify", "steam", "uri"],
+    "author": "xbiei",
+    "source": "https://github.com/xBiei/openinapp"
+}
