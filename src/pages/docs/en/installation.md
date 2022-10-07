@@ -5,7 +5,7 @@ layout: ~/layouts/DocsLayout.astro
 
 ## Using The Installer
 
-You can download the [installer](https://github.com/kernel-mod/installer) from GitHub.
+You can download the [installer](https://github.com/kernel-mod/installer-gui) from GitHub.
 
 Upon opening it, the installer will scan your drive for Electron apps and give you an option to install Kernel to them.
 
