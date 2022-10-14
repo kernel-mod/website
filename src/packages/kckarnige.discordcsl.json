@@ -1,0 +1,8 @@
+{
+    "id": "kckarnige.DiscordCSL",
+    "name": "Discord Custom Server Logos",
+    "description": "A neat little Discord plugin that adds custom logos to your favorite servers.*",
+    "tags": ["discord", "utility", "who-asked"],
+    "author": "KayoticCarnige",
+    "source": "https://github.com/DiscordCSL/DiscordCSL/tree/main/plugins/kernel-mod"
+}
