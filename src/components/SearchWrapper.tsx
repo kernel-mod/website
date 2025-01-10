@@ -120,7 +120,9 @@ export default function SearchWrapper(props: Props) {
 	});
 
 	onCleanup(() => {
-		window.removeEventListener("click", handleOuterClick);
+		if (typeof window != "undefined") {
+			window.removeEventListener("click", handleOuterClick);
+		}
 	});
 
 	return (
