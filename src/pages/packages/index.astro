@@ -32,6 +32,8 @@ for (const pkg of packages) {
     }
 }
 
+const tagsSet = Array.from(new Set(tags));
+
 const params = new URL(Astro.request.url).searchParams;
 
 const query = params.get("q") || "";
@@ -91,7 +93,7 @@ function buildQueryUrl(options: { [key: string]: any }) {
                     <TriangleDown />
                 </summary>
                 <div class="kernel-packages-tags-filter">
-                    {[...new Set(tags)].map(tag => (
+                    {tagsSet.map(tag => (
                         <Tag
                             role="button"
                             href={buildQueryUrl({ tags: filteredTags.includes(tag) ? filteredTags.filter(t => t !== tag) : filteredTags.concat(tag) })}
